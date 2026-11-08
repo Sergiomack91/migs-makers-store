@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 520" fill="none">
+  <defs>
+    <linearGradient id="machine" x1="120" y1="68" x2="496" y2="466" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff"/>
+      <stop offset="1" stop-color="#dce6ee"/>
+    </linearGradient>
+    <linearGradient id="bed" x1="174" y1="392" x2="474" y2="416" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#91a8ba"/>
+      <stop offset="1" stop-color="#d6e0e8"/>
+    </linearGradient>
+    <linearGradient id="print" x1="267" y1="306" x2="389" y2="398" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#83d8c6"/>
+      <stop offset="1" stop-color="#46a994"/>
+    </linearGradient>
+    <filter id="shadow" x="85" y="30" width="476" height="477" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" result="hardAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+      <feOffset dy="16"/>
+      <feGaussianBlur stdDeviation="14"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix values="0 0 0 0 0.03 0 0 0 0 0.08 0 0 0 0 0.14 0 0 0 0.3 0"/>
+      <feBlend in2="BackgroundImageFix" result="effect1_dropShadow"/>
+      <feBlend in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+    </filter>
+  </defs>
+
+  <ellipse cx="321" cy="454" rx="190" ry="25" fill="#0b1727" fill-opacity=".28"/>
+
+  <g filter="url(#shadow)">
+    <path d="M167 83h306v337H167z" fill="#122238" stroke="#dce6ee" stroke-width="12" stroke-linejoin="round"/>
+    <path d="M190 103h260v281H190z" fill="#f3f6f7"/>
+    <path d="M194 108h251v270H194z" fill="#eaf0f3"/>
+
+    <path d="M151 70h337v29H151z" rx="12" fill="url(#machine)"/>
+    <path d="M151 399h337v28H151z" rx="11" fill="url(#machine)"/>
+    <path d="M154 82h27v327h-27z" rx="10" fill="url(#machine)"/>
+    <path d="M458 82h27v327h-27z" rx="10" fill="url(#machine)"/>
+    <path d="M166 78h308" stroke="#fff" stroke-opacity=".8" stroke-width="5" stroke-linecap="round"/>
+
+    <path d="M217 103v277M423 103v277" stroke="#a9bac7" stroke-width="7" stroke-linecap="round"/>
+    <path d="M213 115h215" stroke="#c3d0d9" stroke-width="6" stroke-linecap="round"/>
+
+    <path d="M238 45a46 46 0 1 1 92 0v42h-92z" fill="#1e334b" stroke="#eaf0f3" stroke-width="8"/>
+    <path d="M253 45a31 31 0 1 1 62 0v36h-62z" fill="#263e57"/>
+    <circle cx="284" cy="45" r="13" fill="#91a8ba"/>
+    <circle cx="284" cy="45" r="6" fill="#1e334b"/>
+    <path d="M284 86c0 34 22 37 22 67" stroke="#65c5b3" stroke-width="5" stroke-linecap="round" stroke-dasharray="7 8"/>
+
+    <path d="M294 142h81v33h-81z" rx="7" fill="#223952"/>
+    <path d="M304 151h61v10h-61z" rx="5" fill="#8fa3b3"/>
+    <path d="M326 174h18v34h-18z" fill="#536b7d"/>
+    <path d="m326 207 9 18 9-18z" fill="#f2a765"/>
+    <path d="M335 225v75" stroke="#f2a765" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 7"/>
+
+    <path d="M176 382h292l35 22H143z" fill="url(#bed)"/>
+    <path d="M195 375h254v12H195z" rx="4" fill="#41586c"/>
+    <path d="M214 368h215v8H214z" rx="4" fill="#71899b"/>
+
+    <path d="m265 367 16-59h109l16 59z" fill="url(#print)" stroke="#baf0e4" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M280 352h111M284 340h104M287 328h97M290 316h91" stroke="#d8fff5" stroke-opacity=".72" stroke-width="3"/>
+    <path d="M300 308c0-17 13-30 30-30h10c17 0 30 13 30 30" stroke="#baf0e4" stroke-width="3"/>
+    <path d="M307 299h57" stroke="#46a994" stroke-opacity=".65" stroke-width="3"/>
+
+    <path d="M451 132h20v244h-20z" rx="8" fill="#bac8d1"/>
+    <rect x="453" y="116" width="16" height="24" rx="7" fill="#e8eef1"/>
+    <circle cx="461" cy="125" r="3" fill="#65c5b3"/>
+  </g>
+
+</svg>
