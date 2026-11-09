@@ -22,9 +22,9 @@
         <h2 class="text-lg font-medium text-migs-logo mb-3">2. Estado actual y revisión pendiente</h2>
         <p>
           Según la información facilitada para este borrador, actualmente no se utiliza analítica ni cookies no
-          esenciales. Esta declaración debe comprobarse en el sitio publicado. Si se añaden servicios o integraciones,
-          habrá que revisar qué cookies se instalan, su finalidad, duración y proveedores, y configurar la información
-          y los controles que correspondan antes de su uso.
+          esenciales. La web utiliza Formspree para gestionar los envíos del formulario y Vercel para alojar el sitio.
+          Hay que comprobar en la versión publicada si estas integraciones u otros servicios usan cookies o tecnologías
+          similares, y actualizar esta política con sus finalidades, duración y proveedores antes de publicar.
         </p>
       </div>
 

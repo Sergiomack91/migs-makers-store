@@ -24,5 +24,35 @@
 </template>
 
 <script setup lang="ts">
+const config = useRuntimeConfig()
+const route = useRoute()
+const siteUrl = String(config.public.siteUrl).replace(/\/+$/, '')
+const pageUrl = computed(() => {
+  if (!siteUrl) return undefined
+
+  const path = route.path === '/' ? '' : route.path
+  return `${siteUrl}${path}`
+})
+const shareImageUrl = computed(() => siteUrl ? `${siteUrl}/og-image.png` : undefined)
+
+useSeoMeta({
+  ogTitle: 'MIGS Makers | Piezas 3D propias y personalizables',
+  ogDescription: 'Descubre nuestra colección de piezas propias fabricadas en 3D y consulta las opciones de personalización.',
+  ogType: 'website',
+  ogSiteName: 'MIGS Makers',
+  ogImage: shareImageUrl,
+  ogImageWidth: '1200',
+  ogImageHeight: '630',
+  twitterCard: 'summary_large_image',
+  twitterTitle: 'MIGS Makers | Piezas 3D propias y personalizables',
+  twitterDescription: 'Descubre nuestra colección de piezas propias fabricadas en 3D y consulta las opciones de personalización.',
+  twitterImage: shareImageUrl,
+})
+
+useHead(() => ({
+  link: pageUrl.value ? [{ rel: 'canonical', href: pageUrl.value }] : [],
+  meta: pageUrl.value ? [{ property: 'og:url', content: pageUrl.value }] : [],
+}))
+
 const { whatsappUrl } = useStorefrontContact()
 </script>

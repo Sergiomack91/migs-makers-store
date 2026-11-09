@@ -14,7 +14,7 @@ export const products: Product[] = [
     slug: 'soporte-auriculares',
     name: 'Soporte para auriculares (ejemplo)',
     category: 'Más vendidos',
-    material: 'Material a consultar',
+    material: 'PLA',
     description:
       'Producto de ejemplo para mostrar cómo se verá el catálogo. Consulta precio y posibles opciones de personalización.',
   },
@@ -23,7 +23,7 @@ export const products: Product[] = [
     slug: 'carcasa-teclado-60',
     name: 'Accesorio de escritorio (ejemplo)',
     category: 'Varios',
-    material: 'Material a consultar',
+    material: 'PLA',
     description:
       'Producto de ejemplo para mostrar cómo se verá el catálogo. Consulta precio y posibles opciones de personalización.',
   },
@@ -32,7 +32,7 @@ export const products: Product[] = [
     slug: 'macetero-geometrico',
     name: 'Macetero decorativo (ejemplo)',
     category: 'Hogar',
-    material: 'Material a consultar',
+    material: 'PLA',
     description:
       'Producto de ejemplo para mostrar cómo se verá el catálogo. Consulta precio y posibles opciones de personalización.',
   },
@@ -41,7 +41,7 @@ export const products: Product[] = [
     slug: 'figura-articulada',
     name: 'Figura articulada (ejemplo)',
     category: 'Más vendidos',
-    material: 'Material a consultar',
+    material: 'PLA',
     description:
       'Producto de ejemplo para mostrar cómo se verá el catálogo. Consulta precio y posibles opciones de personalización.',
   },
@@ -50,7 +50,7 @@ export const products: Product[] = [
     slug: 'llavero-ejemplo',
     name: 'Llavero personalizado (ejemplo)',
     category: 'Llaveros',
-    material: 'Material a consultar',
+    material: 'PLA',
     description:
       'Producto de ejemplo para mostrar cómo se verá la sección de llaveros. Consulta precio y posibles opciones de personalización.',
   },

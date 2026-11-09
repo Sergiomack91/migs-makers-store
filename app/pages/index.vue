@@ -15,6 +15,7 @@ const contactForm = reactive({
   product: '',
   message: '',
   _gotcha: '',
+  privacyNoticeRead: false,
 })
 const formStatus = ref<'idle' | 'submitting' | 'success' | 'error'>('idle')
 const formStatusMessage = ref('')
@@ -31,8 +32,8 @@ const benefits = [
     icon: '▣',
   },
   {
-    title: 'Materiales y calidad',
-    text: 'Trabajamos con materiales resistentes y acabados pensados para uso cotidiano y decorativo.',
+    title: 'Impresión en PLA',
+    text: 'Fabricamos nuestras piezas en PLA, un material que permite conseguir buenos detalles y una amplia variedad de colores.',
     icon: '☏',
   },
   {
@@ -76,11 +77,26 @@ const faqs = [
   },
   {
     question: '¿Qué tipos de materiales usáis?',
-    answer: 'Trabajamos con materiales como PLA, PETG y otros según la pieza y su uso buscado.',
+    answer: 'Actualmente imprimimos nuestras piezas en PLA. Si una pieza requiere otro material, te lo indicaremos en su ficha.',
   },
   {
     question: '¿Trabajáis solo con piezas propias?',
     answer: 'Sí. Trabajamos con nuestra propia colección, cuyos modelos tienen colores y tamaños establecidos. También puedes consultarnos si buscas algún cambio.',
+  },
+]
+
+const plaBenefits = [
+  {
+    title: 'Buenos detalles',
+    text: 'El PLA permite reproducir formas y detalles definidos en las piezas.',
+  },
+  {
+    title: 'Variedad de colores',
+    text: 'Está disponible en muchos colores, para ofrecer distintas opciones según cada modelo.',
+  },
+  {
+    title: 'Ligero y rígido',
+    text: 'Es un material ligero y rígido, adecuado para muchos objetos decorativos y de uso cotidiano.',
   },
 ]
 
@@ -114,7 +130,7 @@ async function submitContactForm() {
       throw new Error(`Formspree returned HTTP ${response.status}`)
     }
 
-    Object.assign(contactForm, { name: '', email: '', product: '', message: '', _gotcha: '' })
+    Object.assign(contactForm, { name: '', email: '', product: '', message: '', _gotcha: '', privacyNoticeRead: false })
     formStatus.value = 'success'
     formStatusMessage.value = '¡Gracias! Hemos recibido tu consulta y te responderemos lo antes posible.'
   } catch (error) {
@@ -225,6 +241,27 @@ async function submitContactForm() {
             <p class="mt-3 text-sm leading-relaxed text-migs-text">{{ benefit.text }}</p>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+      <div class="mx-auto max-w-7xl rounded-[2rem] border border-migs-border/30 bg-white p-6 sm:p-10">
+        <div class="max-w-2xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Nuestro material</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Imprimimos en PLA</h2>
+          <p class="mt-3 text-sm leading-relaxed text-migs-text">
+            El PLA es un termoplástico muy utilizado en impresión 3D. Permite crear piezas ligeras, rígidas y con buen nivel de detalle. Como cualquier material, tiene límites: puede deformarse con temperaturas elevadas y no es adecuado para todos los usos.
+          </p>
+        </div>
+        <div class="mt-8 grid gap-5 md:grid-cols-3">
+          <article v-for="benefit in plaBenefits" :key="benefit.title" class="rounded-2xl bg-migs-bg p-5">
+            <h3 class="font-semibold text-migs-logo">{{ benefit.title }}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-migs-text">{{ benefit.text }}</p>
+          </article>
+        </div>
+        <p class="mt-5 text-xs leading-relaxed text-migs-text">
+          La resistencia y el acabado dependen del diseño, la configuración de impresión y el uso de cada pieza. Consúltanos si tienes dudas sobre una aplicación concreta.
+        </p>
       </div>
     </section>
 
@@ -444,6 +481,23 @@ async function submitContactForm() {
               class="w-full rounded-lg border border-migs-border/60 bg-white px-3 py-2 text-sm text-migs-logo outline-none transition placeholder:text-migs-text/70 focus:border-migs-text focus:ring-2 focus:ring-migs-text/20"
             />
           </div>
+
+          <label class="flex items-start gap-3 text-sm leading-relaxed text-migs-text">
+            <input
+              v-model="contactForm.privacyNoticeRead"
+              name="privacy_notice_read"
+              type="checkbox"
+              required
+              class="mt-1 h-4 w-4 shrink-0 rounded border-migs-border text-migs-logo focus:ring-migs-text"
+            >
+            <span>
+              He leído la
+              <NuxtLink to="/aviso-legal#privacidad" target="_blank" class="font-medium text-migs-logo underline decoration-migs-border underline-offset-2">
+                información de privacidad
+              </NuxtLink>
+              sobre el uso de mis datos para responder a esta consulta.
+            </span>
+          </label>
 
           <button
             type="submit"

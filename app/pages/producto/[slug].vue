@@ -8,6 +8,18 @@ const product = products.find((item) => item.slug === route.params.slug)
 if (!product) {
   throw createError({ statusCode: 404, statusMessage: 'Producto no encontrado' })
 }
+
+const productDescription = `${product.name}. ${product.description}`
+
+useSeoMeta({
+  title: () => `${product.name} | MIGS Makers`,
+  description: () => productDescription,
+  ogTitle: () => `${product.name} | MIGS Makers`,
+  ogDescription: () => productDescription,
+  ogType: 'product',
+  twitterTitle: () => `${product.name} | MIGS Makers`,
+  twitterDescription: () => productDescription,
+})
 </script>
 
 <template>
