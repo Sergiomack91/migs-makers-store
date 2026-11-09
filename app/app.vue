@@ -51,7 +51,12 @@ useSeoMeta({
 
 useHead(() => ({
   link: pageUrl.value ? [{ rel: 'canonical', href: pageUrl.value }] : [],
-  meta: pageUrl.value ? [{ property: 'og:url', content: pageUrl.value }] : [],
+  meta: [
+    ...(pageUrl.value ? [{ property: 'og:url', content: pageUrl.value }] : []),
+    ...(config.public.googleSiteVerification
+      ? [{ name: 'google-site-verification', content: String(config.public.googleSiteVerification) }]
+      : []),
+  ],
 }))
 
 const { whatsappUrl } = useStorefrontContact()

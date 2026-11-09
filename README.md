@@ -46,6 +46,7 @@ NUXT_PUBLIC_WALLAPOP_URL=https://es.wallapop.com/app/user/tu-cuenta
 NUXT_PUBLIC_EMAIL_ADDRESS=hola@tudominio.es
 NUXT_PUBLIC_FORMSPREE_FORM_ID=tu_id_de_formulario
 NUXT_PUBLIC_SITE_URL=https://tudominio.es
+NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION=
 ```
 
 Para el formulario, crea uno en Formspree, configura allí el email receptor y copia el identificador del formulario en `NUXT_PUBLIC_FORMSPREE_FORM_ID` (el valor que aparece después de `/f/` en su endpoint). Activa también las opciones de filtrado anti-spam disponibles en tu panel de Formspree; el formulario incluye un campo trampa adicional.
@@ -53,6 +54,18 @@ Para el formulario, crea uno en Formspree, configura allí el email receptor y c
 En Vercel, añade las variables en **Project Settings → Environment Variables** y selecciona los entornos correspondientes (Production, Preview y/o Development). Usa URLs completas para las redes sociales y el número de WhatsApp con prefijo internacional, solo dígitos. Las variables `NUXT_PUBLIC_*` se incluyen en el sitio y son visibles para los visitantes; no pongas secretos en ellas. Tras cambiar variables en Vercel, vuelve a desplegar el proyecto. En local, completa los valores en `.env` y reinicia el servidor. Si una variable está vacía, la acción correspondiente no se mostrará.
 
 Configura `NUXT_PUBLIC_SITE_URL` con la URL pública principal del sitio (por ejemplo, `https://tudominio.es`, sin barra final). Se usa para las URL canónicas y las etiquetas Open Graph/Twitter de las vistas previas al compartir. El favicon se sirve desde `public/favicon.ico`.
+
+El sitemap se genera automáticamente en `/sitemap.xml` e incluye la portada y las fichas de producto. Para que las URL sean absolutas y válidas, configura `NUXT_PUBLIC_SITE_URL` con el dominio de producción, vuelve a desplegar y comprueba `https://tudominio.es/sitemap.xml`.
+
+Para registrar la web en Google Search Console:
+
+1. Abre <https://search.google.com/search-console> e inicia sesión con la cuenta de Google que administrará el sitio.
+2. Añade una propiedad de tipo **Prefijo de URL** con la dirección completa de producción, incluido `https://` y el dominio correcto.
+3. Selecciona la verificación por **Etiqueta HTML**. Copia únicamente el valor del atributo `content` y configúralo como `NUXT_PUBLIC_GOOGLE_SITE_VERIFICATION` en Vercel.
+4. Despliega de nuevo y pulsa **Verificar** en Search Console. La etiqueta de verificación debe permanecer en el sitio.
+5. En la sección **Sitemaps**, envía `sitemap.xml`. Google rastreará las URL; su aparición en los resultados puede tardar y no está garantizada.
+
+Como alternativa, puedes crear una propiedad de tipo **Dominio** y verificarla mediante un registro DNS TXT en el proveedor de tu dominio. Ese método cubre los subdominios y protocolos; sigue las instrucciones que muestra Search Console.
 
 El formulario transmite datos personales a Formspree. Revisa sus condiciones y política de privacidad y completa la política de privacidad del sitio con la información real del tratamiento antes de publicarlo.
 

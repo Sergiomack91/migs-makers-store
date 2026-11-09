@@ -11,7 +11,8 @@ export default defineNuxtConfig({
       wallapopUrl: '',
       emailAddress: '',
       formspreeFormId: '',
-      siteUrl: ''
+      siteUrl: '',
+      googleSiteVerification: ''
     }
   },
   app: {
