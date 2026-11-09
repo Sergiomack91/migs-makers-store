@@ -9,6 +9,7 @@ export function useStorefrontContact() {
     { name: 'TikTok', url: config.public.tiktokUrl, icon: 'tiktok' },
     { name: 'Vinted', url: config.public.vintedUrl, icon: 'vinted' },
     { name: 'Wallapop', url: config.public.wallapopUrl, icon: 'wallapop' },
+    { name: 'Etsy', url: config.public.etsyUrl, icon: 'etsy' },
   ]
 
   function whatsappUrl(message: string) {

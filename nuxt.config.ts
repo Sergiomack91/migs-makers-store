@@ -9,6 +9,7 @@ export default defineNuxtConfig({
       tiktokUrl: '',
       vintedUrl: '',
       wallapopUrl: '',
+      etsyUrl: '',
       emailAddress: '',
       formspreeFormId: '',
       siteUrl: '',

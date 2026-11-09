@@ -43,6 +43,7 @@ NUXT_PUBLIC_INSTAGRAM_URL=https://www.instagram.com/tu-cuenta/
 NUXT_PUBLIC_TIKTOK_URL=https://www.tiktok.com/@tu-cuenta
 NUXT_PUBLIC_VINTED_URL=https://www.vinted.es/member/tu-cuenta
 NUXT_PUBLIC_WALLAPOP_URL=https://es.wallapop.com/app/user/tu-cuenta
+NUXT_PUBLIC_ETSY_URL=https://www.etsy.com/shop/tu-tienda
 NUXT_PUBLIC_EMAIL_ADDRESS=hola@tudominio.es
 NUXT_PUBLIC_FORMSPREE_FORM_ID=tu_id_de_formulario
 NUXT_PUBLIC_SITE_URL=https://tudominio.es
