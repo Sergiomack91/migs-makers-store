@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { emailAddress, emailUrl, socialLinks, whatsappUrl } = useStorefrontContact()
+const { emailUrl, socialLinks, whatsappUrl } = useStorefrontContact()
 const whatsappLink = whatsappUrl('Hola, quiero información sobre vuestros productos.')
 const emailLink = emailUrl('Consulta sobre MIGS 3D')
 const hasMissingSocialLinks = socialLinks.some((social) => !social.url)
@@ -67,9 +67,10 @@ const hasMissingSocialLinks = socialLinks.some((social) => !social.url)
             <a
               v-if="emailLink"
               :href="emailLink"
+              aria-label="Enviar email"
               class="inline-flex min-h-10 items-center gap-2 rounded-lg border border-migs-border px-3 py-2 text-sm font-semibold text-migs-logo transition-colors hover:bg-migs-bg"
             >
-              {{ emailAddress }}
+              Enviar email
             </a>
             <p v-if="!whatsappLink && !instagramUrl && !emailLink" class="text-sm text-migs-text">
               Añadiremos aquí los enlaces de contacto cuando estén disponibles.
