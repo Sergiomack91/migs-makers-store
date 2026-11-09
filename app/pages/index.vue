@@ -2,6 +2,12 @@
 import { products } from '~/data/products'
 
 const { emailUrl, formspreeFormId, whatsappUrl } = useStorefrontContact()
+const catalogSections = [
+  { id: 'mas-vendidos', title: 'Más vendidos' },
+  { id: 'hogar', title: 'Hogar' },
+  { id: 'llaveros', title: 'Llaveros' },
+  { id: 'varios', title: 'Varios' },
+]
 
 const contactForm = reactive({
   name: '',
@@ -241,45 +247,81 @@ async function submitContactForm() {
 
     <section id="productos" class="scroll-mt-24 px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
       <div class="mx-auto max-w-7xl">
-        <div class="mb-8 flex flex-col gap-3 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
+        <div class="mb-8 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">La colección</p>
-            <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Piezas para descubrir</h2>
+            <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Explora por categorías</h2>
           </div>
           <p class="max-w-md text-sm leading-relaxed text-migs-text">
-            Nuestras piezas están pensadas para decorar y acompañar, con la posibilidad de adaptar pequeños detalles a tu espacio y estilo.
+            Estos artículos son ejemplos provisionales. Pronto añadiremos los productos y fotografías definitivos.
           </p>
         </div>
 
-        <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          <article v-for="product in products" :key="product.id" class="group">
-            <NuxtLink :to="`/producto/${product.slug}`" class="block">
-              <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/80">
-                <img
-                  :src="product.image"
-                  :alt="product.name"
-                  loading="lazy"
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                >
-                <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
-                  {{ product.category }}
-                </span>
-                <span class="absolute bottom-4 left-4 rounded-full bg-migs-logo/80 px-3 py-1.5 text-[10px] font-medium text-white backdrop-blur">
-                  Foto de ejemplo
-                </span>
-              </div>
-              <div class="mt-4 flex items-start justify-between gap-3">
-                <div>
-                  <h3 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
-                  <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
-                </div>
-                <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
-              </div>
-            </NuxtLink>
-            <div class="mt-4">
-              <ProductContactActions :product-name="product.name" compact />
+        <nav aria-label="Categorías de productos" class="mb-10 flex flex-wrap gap-3">
+          <a
+            v-for="section in catalogSections"
+            :key="section.id"
+            :href="`#${section.id}`"
+            class="rounded-full border border-migs-border/50 bg-white px-4 py-2 text-sm font-medium text-migs-logo transition-colors hover:bg-migs-bg"
+          >
+            {{ section.title }}
+          </a>
+        </nav>
+
+        <div class="space-y-14">
+          <section
+            v-for="section in catalogSections"
+            :id="section.id"
+            :key="section.id"
+            class="scroll-mt-24"
+            :aria-labelledby="`${section.id}-title`"
+          >
+            <div class="mb-6 flex items-end justify-between gap-4">
+              <h3 :id="`${section.id}-title`" class="text-2xl font-semibold tracking-tight text-migs-logo sm:text-3xl">
+                {{ section.title }}
+              </h3>
             </div>
-          </article>
+
+            <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+              <article
+                v-for="product in products.filter((item) => item.category === section.title)"
+                :key="product.id"
+                class="group rounded-2xl"
+              >
+                <NuxtLink :to="`/producto/${product.slug}`" class="block">
+                  <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
+                    <img
+                      v-if="product.image"
+                      :src="product.image"
+                      :alt="product.name"
+                      loading="lazy"
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    >
+                    <div v-else class="flex flex-col items-center gap-3 text-center text-migs-text">
+                      <svg class="h-14 w-14 opacity-60" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                        <path d="M8 16.5 24 8l16 8.5v16L24 41 8 32.5v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                        <path d="m8.5 16.8 15.5 8.4 15.5-8.4M24 25.5V40" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                      </svg>
+                      <span class="text-sm font-medium">Imagen próximamente</span>
+                    </div>
+                    <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
+                      Producto de ejemplo
+                    </span>
+                  </div>
+                  <div class="mt-4 flex items-start justify-between gap-3">
+                    <div>
+                      <h4 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h4>
+                      <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
+                    </div>
+                    <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
+                  </div>
+                </NuxtLink>
+                <div class="mt-4">
+                  <ProductContactActions :product-name="product.name" compact />
+                </div>
+              </article>
+            </div>
+          </section>
         </div>
       </div>
     </section>

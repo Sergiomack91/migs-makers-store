@@ -16,11 +16,15 @@ if (!product) {
       &larr; Volver al escaparate
     </NuxtLink>
     <div class="grid grid-cols-1 items-start gap-8 md:grid-cols-2 lg:gap-16">
-      <div class="relative aspect-[4/5] w-full overflow-hidden rounded-2xl bg-white">
-        <img :src="product.image" :alt="product.name" class="h-full w-full object-cover object-center" />
-        <span class="absolute bottom-4 left-4 rounded-full bg-migs-logo/80 px-3 py-1.5 text-xs font-medium text-white backdrop-blur">
-          Foto de ejemplo
-        </span>
+      <div class="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl bg-migs-bg">
+        <img v-if="product.image" :src="product.image" :alt="product.name" class="h-full w-full object-cover object-center" />
+        <div v-else class="flex flex-col items-center gap-3 text-migs-text">
+          <svg class="h-16 w-16 opacity-60" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+            <path d="M8 16.5 24 8l16 8.5v16L24 41 8 32.5v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+            <path d="m8.5 16.8 15.5 8.4 15.5-8.4M24 25.5V40" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+          </svg>
+          <span class="text-sm font-medium">Imagen próximamente</span>
+        </div>
       </div>
 
       <div class="flex flex-col">
