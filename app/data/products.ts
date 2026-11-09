@@ -15,7 +15,7 @@ export const products: Product[] = [
     id: 1,
     slug: 'soporte-auriculares',
     name: 'Soporte para auriculares (ejemplo)',
-    category: 'Más vendidos',
+    category: 'Populares',
     material: 'PLA',
     description:
       'Producto de ejemplo para mostrar cómo se verá el catálogo. Consulta precio y posibles opciones de personalización.',
@@ -42,7 +42,7 @@ export const products: Product[] = [
     id: 4,
     slug: 'figura-articulada',
     name: 'Figura articulada (ejemplo)',
-    category: 'Más vendidos',
+    category: 'Populares',
     material: 'PLA',
     description:
       'Producto de ejemplo para mostrar cómo se verá el catálogo. Consulta precio y posibles opciones de personalización.',

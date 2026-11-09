@@ -3,11 +3,12 @@ import { products } from '~/data/products'
 
 const { emailUrl, formspreeFormId, whatsappUrl } = useStorefrontContact()
 const catalogSections = [
-  { id: 'mas-vendidos', title: 'Más vendidos' },
+  { id: 'populares', title: 'Populares' },
   { id: 'hogar', title: 'Hogar' },
   { id: 'llaveros', title: 'Llaveros' },
   { id: 'varios', title: 'Varios' },
 ]
+const popularProducts = products.filter((product) => product.category === 'Populares')
 
 const contactForm = reactive({
   name: '',
@@ -225,6 +226,50 @@ async function submitContactForm() {
       </div>
     </section>
 
+    <section id="populares" class="scroll-mt-24 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-6">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Descubre la colección</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Populares</h2>
+        </div>
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+          <article v-for="product in popularProducts" :key="product.id" class="group rounded-2xl">
+            <NuxtLink :to="`/producto/${product.slug}`" class="block">
+              <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
+                <img
+                  v-if="product.image"
+                  :src="product.image"
+                  :alt="product.name"
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                >
+                <div v-else class="flex flex-col items-center gap-3 text-center text-migs-text">
+                  <svg class="h-14 w-14 opacity-60" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <path d="M8 16.5 24 8l16 8.5v16L24 41 8 32.5v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                    <path d="m8.5 16.8 15.5 8.4 15.5-8.4M24 25.5V40" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                  </svg>
+                  <span class="text-sm font-medium">Imagen próximamente</span>
+                </div>
+                <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
+                  Producto de ejemplo
+                </span>
+              </div>
+              <div class="mt-4 flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
+                  <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
+                </div>
+                <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
+              </div>
+            </NuxtLink>
+            <div class="mt-4">
+              <ProductContactActions :product-name="product.name" compact />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <section class="px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
       <div class="mx-auto max-w-7xl">
         <div class="mb-8 text-center">
@@ -324,7 +369,7 @@ async function submitContactForm() {
 
         <div class="space-y-14">
           <section
-            v-for="section in catalogSections"
+            v-for="section in catalogSections.filter((item) => item.id !== 'populares')"
             :id="section.id"
             :key="section.id"
             class="scroll-mt-24"
