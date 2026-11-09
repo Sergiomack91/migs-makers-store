@@ -102,7 +102,7 @@ nuxt.config.ts                  # Configuración de Nuxt y Tailwind CSS
 
 ## Personalización
 
-Los productos de demostración se encuentran en `app/data/products.ts`. Actualiza ahí los nombres, descripciones y materiales. Las imágenes se guardan en `public/images/products/`; por ejemplo, reemplaza `soporte-auriculares.jpg` por tu fotografía conservando el mismo nombre para que la web la use automáticamente. Si cambias el nombre del archivo, actualiza también la ruta `image` del producto en `app/data/products.ts`. Las fotos actuales son ilustrativas y deben cambiarse por fotografías de los productos reales. El aviso legal y la política de cookies deben revisarse y completarse según la actividad, los servicios y la configuración real antes de publicar.
+Los productos de demostración se encuentran en `app/data/products.ts`. Actualiza ahí los nombres, descripciones y materiales. Para mostrar selectores en la ficha de un producto, añade sus opciones reales en `sizes` y `colors`; los selectores solo aparecen cuando hay opciones configuradas, y la selección se incluirá en los mensajes de WhatsApp y email. Las imágenes se guardan en `public/images/products/`; por ejemplo, reemplaza `soporte-auriculares.jpg` por tu fotografía conservando el mismo nombre para que la web la use automáticamente. Si cambias el nombre del archivo, actualiza también la ruta `image` del producto en `app/data/products.ts`. Las fotos actuales son ilustrativas y deben cambiarse por fotografías de los productos reales. El aviso legal y la política de cookies deben revisarse y completarse según la actividad, los servicios y la configuración real antes de publicar.
 
 ## Creador
 

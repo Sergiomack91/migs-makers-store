@@ -4,6 +4,8 @@ import { products } from '~/data/products'
 
 const route = useRoute()
 const product = products.find((item) => item.slug === route.params.slug)
+const selectedSize = ref('')
+const selectedColor = ref('')
 
 if (!product) {
   throw createError({ statusCode: 404, statusMessage: 'Producto no encontrado' })
@@ -45,7 +47,35 @@ useSeoMeta({
         <p class="mb-6 inline-flex w-fit rounded-full bg-white px-3 py-1.5 text-sm font-medium text-migs-text">{{ product.material }}</p>
         <p class="mb-8 leading-relaxed text-migs-text">{{ product.description }}</p>
         <p class="mb-4 text-sm font-semibold text-migs-logo">Precio a consultar</p>
-        <ProductContactActions :product-name="product.name" />
+        <div v-if="product.sizes?.length || product.colors?.length" class="mb-6 space-y-4">
+          <div v-if="product.sizes?.length">
+            <label for="product-size" class="mb-1.5 block text-sm font-semibold text-migs-text">Tamaño</label>
+            <select
+              id="product-size"
+              v-model="selectedSize"
+              class="min-h-11 w-full rounded-lg border border-migs-border bg-white px-3 py-2 text-sm text-migs-text focus:outline-none focus:ring-2 focus:ring-migs-logo"
+            >
+              <option value="">Selecciona un tamaño</option>
+              <option v-for="size in product.sizes" :key="size" :value="size">{{ size }}</option>
+            </select>
+          </div>
+          <div v-if="product.colors?.length">
+            <label for="product-color" class="mb-1.5 block text-sm font-semibold text-migs-text">Color disponible</label>
+            <select
+              id="product-color"
+              v-model="selectedColor"
+              class="min-h-11 w-full rounded-lg border border-migs-border bg-white px-3 py-2 text-sm text-migs-text focus:outline-none focus:ring-2 focus:ring-migs-logo"
+            >
+              <option value="">Selecciona un color</option>
+              <option v-for="color in product.colors" :key="color" :value="color">{{ color }}</option>
+            </select>
+          </div>
+        </div>
+        <ProductContactActions
+          :product-name="product.name"
+          :size="selectedSize"
+          :color="selectedColor"
+        />
         <p class="mt-6 border-t border-migs-border/60 pt-5 text-sm leading-relaxed text-migs-text">
           Cada modelo tiene colores y tamaños establecidos. Escríbenos para consultar disponibilidad y solicitar cambios de color, tamaño o modificaciones; te confirmaremos qué opciones hay para esta pieza.
         </p>

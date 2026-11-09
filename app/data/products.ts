@@ -5,6 +5,8 @@ export interface Product {
   category: string
   material: string
   description: string
+  sizes?: string[]
+  colors?: string[]
   image?: string
 }
 
