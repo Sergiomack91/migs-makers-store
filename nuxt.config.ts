@@ -8,7 +8,8 @@ export default defineNuxtConfig({
       whatsappNumber: '',
       tiktokUrl: '',
       vintedUrl: '',
-      wallapopUrl: ''
+      wallapopUrl: '',
+      emailAddress: ''
     }
   },
   app: {

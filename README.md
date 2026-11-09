@@ -1,6 +1,6 @@
 # MIGSMakers
 
-Escaparate web de MIGSMakers para presentar diseños y productos de fabricación digital. La web no procesa compras ni pagos: las consultas de precio, disponibilidad y personalización se realizarán por WhatsApp o Instagram.
+Escaparate web de MIGSMakers para presentar diseños y productos de fabricación digital. La web no procesa compras ni pagos: las consultas de precio, disponibilidad y personalización se realizarán por WhatsApp, email o Instagram.
 
 > **Estado del proyecto:** prototipo visual con productos de ejemplo. Los enlaces de contacto se activan al configurar sus direcciones.
 
@@ -8,7 +8,7 @@ Escaparate web de MIGSMakers para presentar diseños y productos de fabricación
 
 - Portada visual y catálogo adaptable a móvil y escritorio.
 - Fichas de producto con descripción, categoría y material.
-- Acciones de consulta por producto mediante enlaces configurables a WhatsApp e Instagram.
+- Acciones de consulta por producto mediante enlaces configurables a WhatsApp, email e Instagram.
 - Sin carrito, checkout ni gestión de pedidos en esta aplicación.
 - Interfaz construida con Nuxt, Vue y Tailwind CSS.
 
@@ -42,9 +42,10 @@ NUXT_PUBLIC_INSTAGRAM_URL=https://www.instagram.com/tu-cuenta/
 NUXT_PUBLIC_TIKTOK_URL=https://www.tiktok.com/@tu-cuenta
 NUXT_PUBLIC_VINTED_URL=https://www.vinted.es/member/tu-cuenta
 NUXT_PUBLIC_WALLAPOP_URL=https://es.wallapop.com/app/user/tu-cuenta
+NUXT_PUBLIC_EMAIL_ADDRESS=hola@tudominio.es
 ```
 
-Completa los valores en `.env` y reinicia el servidor de desarrollo. Si una variable está vacía, la acción correspondiente no se mostrará.
+En Vercel, añade las mismas variables en **Project Settings → Environment Variables** y selecciona los entornos correspondientes (Production, Preview y/o Development). Usa URLs completas para las redes sociales y el número de WhatsApp con prefijo internacional, solo dígitos. Estas variables `NUXT_PUBLIC_*` se incluyen en el sitio y son visibles para los visitantes; configúralas solo con datos de contacto que quieras hacer públicos. Tras cambiarlas en Vercel, vuelve a desplegar el proyecto. En local, completa los valores en `.env` y reinicia el servidor. Si una variable está vacía, la acción correspondiente no se mostrará.
 
 ## Comandos disponibles
 

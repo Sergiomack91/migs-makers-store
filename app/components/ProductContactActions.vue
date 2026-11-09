@@ -6,8 +6,12 @@ const props = withDefaults(defineProps<{
   compact: false,
 })
 
-const { instagramUrl, whatsappUrl } = useStorefrontContact()
-const whatsappLink = whatsappUrl(`Hola, me interesa ${props.productName}. ¿Me podéis dar precio e información?`)
+const { emailUrl, instagramUrl, whatsappUrl } = useStorefrontContact()
+const whatsappLink = whatsappUrl(`Hola, me interesa ${props.productName}. ¿Me podéis informar sobre los colores y tamaños disponibles y las opciones de personalización?`)
+const emailLink = emailUrl(
+  `Consulta sobre ${props.productName}`,
+  `Hola, me interesa ${props.productName}. ¿Me podéis informar sobre los colores y tamaños disponibles y las opciones de personalización?`,
+)
 </script>
 
 <template>
@@ -36,8 +40,15 @@ const whatsappLink = whatsappUrl(`Hola, me interesa ${props.productName}. ¿Me p
       </svg>
       Preguntar por Instagram
     </a>
-    <p v-if="!whatsappLink && !instagramUrl" class="text-xs leading-relaxed text-migs-text">
-      Las consultas por WhatsApp e Instagram estarán disponibles próximamente.
+    <a
+      v-if="emailLink"
+      :href="emailLink"
+      class="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-migs-border bg-white px-4 py-2.5 text-sm font-semibold text-migs-logo transition-colors hover:bg-migs-bg"
+    >
+      Consultar por email
+    </a>
+    <p v-if="!whatsappLink && !instagramUrl && !emailLink" class="text-xs leading-relaxed text-migs-text">
+      Los canales de consulta estarán disponibles próximamente.
     </p>
   </div>
 </template>

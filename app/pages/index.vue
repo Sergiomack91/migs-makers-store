@@ -1,3 +1,292 @@
+<script setup lang="ts">
+import { products } from '~/data/products'
+
+const { emailUrl, whatsappUrl } = useStorefrontContact()
+
+const benefits = [
+  {
+    title: 'Colección propia',
+    text: 'Diseñamos y fabricamos nuestros propios modelos, con colores y tamaños establecidos para cada pieza.',
+    icon: '✦',
+  },
+  {
+    title: 'Personalización',
+    text: 'Puedes consultar si es posible personalizar el color, el tamaño o algún detalle del modelo que te interesa.',
+    icon: '▣',
+  },
+  {
+    title: 'Materiales y calidad',
+    text: 'Trabajamos con materiales resistentes y acabados pensados para uso cotidiano y decorativo.',
+    icon: '☏',
+  },
+  {
+    title: 'Asesoramiento directo',
+    text: 'Te ayudamos a elegir la pieza más adecuada y a resolver dudas antes del pedido.',
+    icon: '✓',
+  },
+]
+
+const process = [
+  {
+    number: '01',
+    title: 'Explora la colección',
+    text: 'Elige una pieza de nuestro catálogo y consulta sus colores y tamaños disponibles.',
+  },
+  {
+    number: '02',
+    title: 'Cuéntanos qué cambiarías',
+    text: 'Si quieres otro color, tamaño o alguna modificación, dinos qué tienes en mente.',
+  },
+  {
+    number: '03',
+    title: 'Confirmamos opciones',
+    text: 'Revisamos contigo qué personalizaciones son posibles para esa pieza y su precio.',
+  },
+  {
+    number: '04',
+    title: 'Fabricamos tu pedido',
+    text: 'Una vez confirmados los detalles, preparamos la pieza para que la disfrutes.',
+  },
+]
+
+const faqs = [
+  {
+    question: '¿Podéis personalizar una pieza?',
+    answer: 'Puedes consultarnos cambios de color, tamaño o modificaciones. Las opciones dependen de cada pieza y confirmaremos contigo qué es posible.',
+  },
+  {
+    question: '¿Puedo consultar un presupuesto sin compromiso?',
+    answer: 'Claro. Puedes escribirnos por WhatsApp o Instagram y te responderemos con información y precio.',
+  },
+  {
+    question: '¿Qué tipos de materiales usáis?',
+    answer: 'Trabajamos con materiales como PLA, PETG y otros según la pieza y su uso buscado.',
+  },
+  {
+    question: '¿Trabajáis solo con piezas propias?',
+    answer: 'Sí. Trabajamos con nuestra propia colección, cuyos modelos tienen colores y tamaños establecidos. También puedes consultarnos si buscas algún cambio.',
+  },
+]
+
+const whatsappContact = whatsappUrl('Hola, me interesa una de vuestras piezas. ¿Me podéis informar sobre los colores y tamaños disponibles y las opciones de personalización?')
+const emailContact = emailUrl(
+  'Consulta sobre MIGS 3D',
+  'Hola, me interesa una de vuestras piezas. ¿Me podéis informar sobre los colores y tamaños disponibles y las opciones de personalización?',
+)
+</script>
+
 <template>
-  <ProductGrid />
+  <div>
+    <section class="px-4 pb-14 pt-8 sm:px-6 lg:px-8 lg:pb-24 lg:pt-12">
+      <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-migs-logo px-6 py-14 text-white shadow-xl shadow-slate-200/60 sm:px-12 sm:py-20 lg:px-20">
+        <div class="pointer-events-none absolute -right-20 -top-32 h-96 w-96 rounded-full border border-white/10" />
+        <div class="pointer-events-none absolute -right-4 -top-16 h-64 w-64 rounded-full border border-white/10" />
+        <div class="pointer-events-none absolute bottom-0 left-0 h-44 w-44 rounded-full bg-white/5 blur-2xl" />
+
+        <div class="relative grid items-center gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:gap-6">
+          <div class="relative z-10">
+            <p class="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-white/70">Diseño y fabricación 3D</p>
+            <h1 class="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+              Piezas propias, con opciones para hacerlas más tuyas.
+            </h1>
+            <p class="mt-6 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
+              Cada modelo tiene colores y tamaños establecidos. ¿Te gustaría cambiar el color, las medidas o algún detalle? Consúltanos las opciones para tu pieza.
+            </p>
+
+            <div class="mt-9 flex flex-wrap gap-3">
+              <a
+                v-if="whatsappContact"
+                :href="whatsappContact"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex min-h-12 items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-migs-logo transition-colors hover:bg-migs-bg"
+              >
+                Solicitar presupuesto
+              </a>
+              <a
+                v-else-if="emailContact"
+                :href="emailContact"
+                class="inline-flex min-h-12 items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-migs-logo transition-colors hover:bg-migs-bg"
+              >
+                Solicitar presupuesto por email
+              </a>
+              <NuxtLink to="#productos" class="inline-flex min-h-12 items-center rounded-lg border border-white/40 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">
+                Ver catálogo
+              </NuxtLink>
+            </div>
+
+            <div class="mt-10 flex flex-wrap gap-6 text-sm text-white/80">
+              <div>
+                <span class="block text-2xl font-semibold text-white">Color</span>
+                <span>opciones disponibles</span>
+              </div>
+              <div>
+                <span class="block text-2xl font-semibold text-white">Tamaño</span>
+                <span>medidas definidas</span>
+              </div>
+              <div>
+                <span class="block text-2xl font-semibold text-white">Detalles</span>
+                <span>cambios bajo consulta</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="mx-auto w-full max-w-md lg:max-w-none">
+            <div class="rounded-[2rem] border border-white/20 bg-white/10 p-4 backdrop-blur-sm">
+              <img
+                src="/migs-impresion-3d.svg"
+                alt="Ilustración de una impresora 3D fabricando una pieza"
+                class="h-auto w-full rounded-[1.5rem] bg-white/5 p-4"
+              >
+              <div class="mt-4 rounded-2xl bg-white/10 p-4 text-sm text-white/80">
+                <p class="font-semibold text-white">Nuestra colección, con opciones de personalización</p>
+                <ul class="mt-3 space-y-2">
+                  <li>• Colores y tamaños establecidos por modelo</li>
+                  <li>• Consulta cambios de color, tamaño o detalles</li>
+                  <li>• Confirmamos las opciones según cada pieza</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-8 text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">¿Por qué elegir MIGS 3D?</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Colección y detalles que te acompañan</h2>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <article v-for="benefit in benefits" :key="benefit.title" class="rounded-3xl border border-migs-border/30 bg-white p-6 shadow-sm">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-migs-bg text-xl font-semibold text-migs-logo">
+              {{ benefit.icon }}
+            </div>
+            <h3 class="text-xl font-semibold text-migs-logo">{{ benefit.title }}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-migs-text">{{ benefit.text }}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="proceso" class="scroll-mt-24 px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-10 text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Cómo trabajamos</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Un proceso sencillo y claro</h2>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <article v-for="step in process" :key="step.number" class="rounded-3xl border border-migs-border/30 bg-white p-6">
+            <span class="text-sm font-semibold uppercase tracking-[0.2em] text-migs-text">{{ step.number }}</span>
+            <h3 class="mt-4 text-xl font-semibold text-migs-logo">{{ step.title }}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-migs-text">{{ step.text }}</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="productos" class="scroll-mt-24 px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-8 flex flex-col gap-3 sm:mb-12 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">La colección</p>
+            <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Piezas para descubrir</h2>
+          </div>
+          <p class="max-w-md text-sm leading-relaxed text-migs-text">
+            Nuestras piezas están pensadas para decorar y acompañar, con la posibilidad de adaptar pequeños detalles a tu espacio y estilo.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+          <article v-for="product in products" :key="product.id" class="group">
+            <NuxtLink :to="`/producto/${product.slug}`" class="block">
+              <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200/80">
+                <img
+                  :src="product.image"
+                  :alt="product.name"
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                >
+                <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
+                  {{ product.category }}
+                </span>
+                <span class="absolute bottom-4 left-4 rounded-full bg-migs-logo/80 px-3 py-1.5 text-[10px] font-medium text-white backdrop-blur">
+                  Foto de ejemplo
+                </span>
+              </div>
+              <div class="mt-4 flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
+                  <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
+                </div>
+                <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
+              </div>
+            </NuxtLink>
+            <div class="mt-4">
+              <ProductContactActions :product-name="product.name" compact />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="personalizacion" class="scroll-mt-24 px-4 py-6 sm:px-6 lg:px-8 lg:py-12">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-8 text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Personaliza tu pieza</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Tu estilo, sobre nuestros modelos</h2>
+          <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-migs-text">
+            Cada pieza tiene opciones de color y tamaño definidas. Si necesitas algo diferente o una modificación, cuéntanos qué buscas y comprobaremos si se puede hacer para ese modelo.
+          </p>
+        </div>
+
+        <div class="mx-auto flex max-w-3xl flex-col items-center gap-4 rounded-3xl border border-migs-border/30 bg-white p-6 text-center sm:flex-row sm:justify-center sm:text-left">
+          <p class="text-sm leading-relaxed text-migs-text">
+            ¿Tienes una pieza en mente? Escríbenos con el modelo y los cambios que te gustaría pedir. Te confirmaremos disponibilidad y precio.
+          </p>
+          <a
+            v-if="whatsappContact"
+            :href="whatsappContact"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex min-h-11 shrink-0 items-center justify-center rounded-lg bg-migs-logo px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-migs-text"
+          >
+            Consultar personalización
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 py-8 sm:px-6 lg:px-8 lg:py-14">
+      <div class="mx-auto max-w-5xl rounded-[2rem] bg-white p-6 shadow-sm ring-1 ring-slate-200 sm:p-10">
+        <div class="mb-6 text-center">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Preguntas frecuentes</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo">Todo lo que necesitas saber</h2>
+        </div>
+
+        <div class="space-y-4">
+          <div v-for="item in faqs" :key="item.question" class="rounded-2xl border border-migs-border/20 bg-migs-bg p-5">
+            <h3 class="text-base font-semibold text-migs-logo">{{ item.question }}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-migs-text">{{ item.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="scroll-mt-24 px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+      <div class="mx-auto flex max-w-7xl flex-col gap-8 rounded-[2rem] border border-migs-border/50 bg-white p-6 sm:p-10 md:flex-row md:items-center md:justify-between">
+        <div class="max-w-xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">¿Quieres personalizar una pieza?</p>
+          <h2 class="mt-2 text-2xl font-semibold tracking-tight text-migs-logo sm:text-3xl">Cuéntanos qué cambio tienes en mente</h2>
+          <p class="mt-3 text-sm leading-relaxed text-migs-text">
+            Dinos qué pieza te interesa y si quieres consultar un cambio de color, tamaño o algún detalle. Te confirmaremos las opciones disponibles.
+          </p>
+        </div>
+        <ProductContactActions product-name="una pieza de la colección y sus opciones de personalización" />
+      </div>
+    </section>
+  </div>
 </template>

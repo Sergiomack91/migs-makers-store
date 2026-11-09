@@ -31,7 +31,7 @@ if (!product) {
         <p class="mb-4 text-sm font-semibold text-migs-logo">Precio a consultar</p>
         <ProductContactActions :product-name="product.name" />
         <p class="mt-6 border-t border-migs-border/60 pt-5 text-sm leading-relaxed text-migs-text">
-          Escríbenos para confirmar disponibilidad, opciones de personalización y detalles de cada pieza.
+          Cada modelo tiene colores y tamaños establecidos. Escríbenos para consultar disponibilidad y solicitar cambios de color, tamaño o modificaciones; te confirmaremos qué opciones hay para esta pieza.
         </p>
       </div>
     </div>
