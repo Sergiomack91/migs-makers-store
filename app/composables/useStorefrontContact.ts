@@ -20,8 +20,11 @@ export function useStorefrontContact() {
   function emailUrl(subject: string, body = '') {
     if (!emailAddress) return ''
 
-    const params = new URLSearchParams({ subject, body })
-    return `mailto:${emailAddress}?${params.toString()}`
+    const params = new URLSearchParams()
+    params.set('subject', subject)
+    params.set('body', body)
+
+    return `mailto:${emailAddress}?${params.toString().replace(/\+/g, '%20')}`
   }
 
   return { emailAddress, emailUrl, formspreeFormId, instagramUrl, socialLinks, whatsappUrl }
