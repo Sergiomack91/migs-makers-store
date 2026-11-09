@@ -24,22 +24,22 @@ const benefits = [
   {
     title: 'Colección propia',
     text: 'Diseñamos y fabricamos nuestros propios modelos, con colores y tamaños establecidos para cada pieza.',
-    icon: '✦',
+    icon: 'collection',
   },
   {
     title: 'Personalización',
     text: 'Puedes consultar si es posible personalizar el color, el tamaño o algún detalle del modelo que te interesa.',
-    icon: '▣',
+    icon: 'customize',
   },
   {
     title: 'Impresión en PLA',
     text: 'Fabricamos nuestras piezas en PLA, un material que permite conseguir buenos detalles y una amplia variedad de colores.',
-    icon: '☏',
+    icon: 'printer',
   },
   {
     title: 'Asesoramiento directo',
     text: 'Te ayudamos a elegir la pieza más adecuada y a resolver dudas antes del pedido.',
-    icon: '✓',
+    icon: 'support',
   },
 ]
 
@@ -234,8 +234,25 @@ async function submitContactForm() {
 
         <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           <article v-for="benefit in benefits" :key="benefit.title" class="rounded-3xl border border-migs-border/30 bg-white p-6 shadow-sm">
-            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-migs-bg text-xl font-semibold text-migs-logo">
-              {{ benefit.icon }}
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-migs-bg text-migs-logo">
+              <svg v-if="benefit.icon === 'collection'" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" />
+                <path d="m4.5 7.8 7.5 4.3 7.5-4.3M12 12.1V21" />
+              </svg>
+              <svg v-else-if="benefit.icon === 'customize'" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 3a9 9 0 1 0 9 9" />
+                <path d="M12 7v5l3 2" />
+                <path d="M19 3v5m-2.5-2.5h5" />
+              </svg>
+              <svg v-else-if="benefit.icon === 'printer'" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 8V3h12v5M6 17H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+                <path d="M6 14h12v7H6zM18 11h.01" />
+              </svg>
+              <svg v-else-if="benefit.icon === 'support'" class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 13v-2a8 8 0 0 1 16 0v2" />
+                <path d="M4 13a2 2 0 0 0 0 4h2v-4H4Zm16 0a2 2 0 0 1 0 4h-2v-4h2Z" />
+                <path d="M18 18a6 6 0 0 1-6 3h-1" />
+              </svg>
             </div>
             <h3 class="text-xl font-semibold text-migs-logo">{{ benefit.title }}</h3>
             <p class="mt-3 text-sm leading-relaxed text-migs-text">{{ benefit.text }}</p>
