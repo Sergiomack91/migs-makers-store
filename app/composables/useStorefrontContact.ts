@@ -3,6 +3,7 @@ export function useStorefrontContact() {
   const instagramUrl = config.public.instagramUrl
   const whatsappNumber = String(config.public.whatsappNumber).replace(/\D/g, '')
   const emailAddress = String(config.public.emailAddress).trim()
+  const formspreeFormId = String(config.public.formspreeFormId).trim()
   const socialLinks = [
     { name: 'Instagram', url: instagramUrl, icon: 'instagram' },
     { name: 'TikTok', url: config.public.tiktokUrl, icon: 'tiktok' },
@@ -23,5 +24,5 @@ export function useStorefrontContact() {
     return `mailto:${emailAddress}?${params.toString()}`
   }
 
-  return { emailAddress, emailUrl, instagramUrl, socialLinks, whatsappUrl }
+  return { emailAddress, emailUrl, formspreeFormId, instagramUrl, socialLinks, whatsappUrl }
 }

@@ -9,6 +9,7 @@ Escaparate web de MIGSMakers para presentar diseños y productos de fabricación
 - Portada visual y catálogo adaptable a móvil y escritorio.
 - Fichas de producto con descripción, categoría y material.
 - Acciones de consulta por producto mediante enlaces configurables a WhatsApp, email e Instagram.
+- Formulario de contacto con campo trampa anti-bots, procesado por Formspree.
 - Sin carrito, checkout ni gestión de pedidos en esta aplicación.
 - Interfaz construida con Nuxt, Vue y Tailwind CSS.
 
@@ -43,9 +44,14 @@ NUXT_PUBLIC_TIKTOK_URL=https://www.tiktok.com/@tu-cuenta
 NUXT_PUBLIC_VINTED_URL=https://www.vinted.es/member/tu-cuenta
 NUXT_PUBLIC_WALLAPOP_URL=https://es.wallapop.com/app/user/tu-cuenta
 NUXT_PUBLIC_EMAIL_ADDRESS=hola@tudominio.es
+NUXT_PUBLIC_FORMSPREE_FORM_ID=tu_id_de_formulario
 ```
 
-En Vercel, añade las mismas variables en **Project Settings → Environment Variables** y selecciona los entornos correspondientes (Production, Preview y/o Development). Usa URLs completas para las redes sociales y el número de WhatsApp con prefijo internacional, solo dígitos. Estas variables `NUXT_PUBLIC_*` se incluyen en el sitio y son visibles para los visitantes; configúralas solo con datos de contacto que quieras hacer públicos. Tras cambiarlas en Vercel, vuelve a desplegar el proyecto. En local, completa los valores en `.env` y reinicia el servidor. Si una variable está vacía, la acción correspondiente no se mostrará.
+Para el formulario, crea uno en Formspree, configura allí el email receptor y copia el identificador del formulario en `NUXT_PUBLIC_FORMSPREE_FORM_ID` (el valor que aparece después de `/f/` en su endpoint). Activa también las opciones de filtrado anti-spam disponibles en tu panel de Formspree; el formulario incluye un campo trampa adicional.
+
+En Vercel, añade las variables en **Project Settings → Environment Variables** y selecciona los entornos correspondientes (Production, Preview y/o Development). Usa URLs completas para las redes sociales y el número de WhatsApp con prefijo internacional, solo dígitos. Las variables `NUXT_PUBLIC_*` se incluyen en el sitio y son visibles para los visitantes; no pongas secretos en ellas. Tras cambiar variables en Vercel, vuelve a desplegar el proyecto. En local, completa los valores en `.env` y reinicia el servidor. Si una variable está vacía, la acción correspondiente no se mostrará.
+
+El formulario transmite datos personales a Formspree. Revisa sus condiciones y política de privacidad y completa la política de privacidad del sitio con la información real del tratamiento antes de publicarlo.
 
 ## Comandos disponibles
 

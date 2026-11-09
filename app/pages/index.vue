@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import { products } from '~/data/products'
 
-const { emailUrl, whatsappUrl } = useStorefrontContact()
+const { emailUrl, formspreeFormId, whatsappUrl } = useStorefrontContact()
+
+const contactForm = reactive({
+  name: '',
+  email: '',
+  product: '',
+  message: '',
+  _gotcha: '',
+})
+const formStatus = ref<'idle' | 'submitting' | 'success' | 'error'>('idle')
+const formStatusMessage = ref('')
 
 const benefits = [
   {
@@ -73,6 +83,40 @@ const emailContact = emailUrl(
   'Consulta sobre MIGS 3D',
   'Hola, me interesa una de vuestras piezas. ¿Me podéis informar sobre los colores y tamaños disponibles y las opciones de personalización?',
 )
+
+async function submitContactForm() {
+  if (!formspreeFormId) {
+    formStatus.value = 'error'
+    formStatusMessage.value = 'El formulario aún no está configurado. Puedes contactarnos por WhatsApp o email.'
+    return
+  }
+
+  formStatus.value = 'submitting'
+  formStatusMessage.value = ''
+
+  try {
+    const response = await fetch(`https://formspree.io/f/${encodeURIComponent(formspreeFormId)}`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(contactForm),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Formspree returned HTTP ${response.status}`)
+    }
+
+    Object.assign(contactForm, { name: '', email: '', product: '', message: '', _gotcha: '' })
+    formStatus.value = 'success'
+    formStatusMessage.value = '¡Gracias! Hemos recibido tu consulta y te responderemos lo antes posible.'
+  } catch (error) {
+    console.error('No se pudo enviar el formulario de contacto.', error)
+    formStatus.value = 'error'
+    formStatusMessage.value = 'No se pudo enviar el mensaje. Inténtalo de nuevo o contáctanos por WhatsApp o email.'
+  }
+}
 </script>
 
 <template>
@@ -110,6 +154,13 @@ const emailContact = emailUrl(
               >
                 Solicitar presupuesto por email
               </a>
+              <NuxtLink
+                v-else-if="formspreeFormId"
+                to="#contacto"
+                class="inline-flex min-h-12 items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-migs-logo transition-colors hover:bg-migs-bg"
+              >
+                Contactar
+              </NuxtLink>
               <NuxtLink to="#productos" class="inline-flex min-h-12 items-center rounded-lg border border-white/40 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">
                 Ver catálogo
               </NuxtLink>
@@ -277,15 +328,102 @@ const emailContact = emailUrl(
     </section>
 
     <section id="contacto" class="scroll-mt-24 px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
-      <div class="mx-auto flex max-w-7xl flex-col gap-8 rounded-[2rem] border border-migs-border/50 bg-white p-6 sm:p-10 md:flex-row md:items-center md:justify-between">
+      <div class="mx-auto grid max-w-7xl gap-8 rounded-[2rem] border border-migs-border/50 bg-white p-6 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
         <div class="max-w-xl">
           <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">¿Quieres personalizar una pieza?</p>
           <h2 class="mt-2 text-2xl font-semibold tracking-tight text-migs-logo sm:text-3xl">Cuéntanos qué cambio tienes en mente</h2>
           <p class="mt-3 text-sm leading-relaxed text-migs-text">
             Dinos qué pieza te interesa y si quieres consultar un cambio de color, tamaño o algún detalle. Te confirmaremos las opciones disponibles.
           </p>
+          <div class="mt-6">
+            <ProductContactActions product-name="una pieza de la colección y sus opciones de personalización" />
+          </div>
         </div>
-        <ProductContactActions product-name="una pieza de la colección y sus opciones de personalización" />
+
+        <form v-if="formspreeFormId" class="space-y-5" @submit.prevent="submitContactForm">
+          <div class="absolute -left-[9999px]" aria-hidden="true">
+            <label for="contact-website">No rellenes este campo</label>
+            <input id="contact-website" v-model="contactForm._gotcha" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label for="contact-name" class="mb-2 block text-sm font-medium text-migs-logo">Nombre</label>
+              <input
+                id="contact-name"
+                v-model.trim="contactForm.name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                required
+                maxlength="100"
+                class="min-h-11 w-full rounded-lg border border-migs-border/60 bg-white px-3 py-2 text-sm text-migs-logo outline-none transition focus:border-migs-text focus:ring-2 focus:ring-migs-text/20"
+              >
+            </div>
+            <div>
+              <label for="contact-email" class="mb-2 block text-sm font-medium text-migs-logo">Email</label>
+              <input
+                id="contact-email"
+                v-model.trim="contactForm.email"
+                name="email"
+                type="email"
+                autocomplete="email"
+                required
+                maxlength="254"
+                class="min-h-11 w-full rounded-lg border border-migs-border/60 bg-white px-3 py-2 text-sm text-migs-logo outline-none transition focus:border-migs-text focus:ring-2 focus:ring-migs-text/20"
+              >
+            </div>
+          </div>
+
+          <div>
+            <label for="contact-product" class="mb-2 block text-sm font-medium text-migs-logo">¿Qué pieza te interesa?</label>
+            <select
+              id="contact-product"
+              v-model="contactForm.product"
+              name="product"
+              class="min-h-11 w-full rounded-lg border border-migs-border/60 bg-white px-3 py-2 text-sm text-migs-logo outline-none transition focus:border-migs-text focus:ring-2 focus:ring-migs-text/20"
+            >
+              <option value="">Selecciona una pieza (opcional)</option>
+              <option v-for="product in products" :key="product.id" :value="product.name">{{ product.name }}</option>
+              <option value="Otra consulta">Otra consulta</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="contact-message" class="mb-2 block text-sm font-medium text-migs-logo">Mensaje</label>
+            <textarea
+              id="contact-message"
+              v-model.trim="contactForm.message"
+              name="message"
+              rows="5"
+              required
+              maxlength="3000"
+              placeholder="Cuéntanos qué color, tamaño o modificación quieres consultar."
+              class="w-full rounded-lg border border-migs-border/60 bg-white px-3 py-2 text-sm text-migs-logo outline-none transition placeholder:text-migs-text/70 focus:border-migs-text focus:ring-2 focus:ring-migs-text/20"
+            />
+          </div>
+
+          <button
+            type="submit"
+            :disabled="formStatus === 'submitting'"
+            class="inline-flex min-h-11 items-center justify-center rounded-lg bg-migs-logo px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-migs-text disabled:cursor-wait disabled:opacity-60"
+          >
+            {{ formStatus === 'submitting' ? 'Enviando…' : 'Enviar consulta' }}
+          </button>
+          <p
+            v-if="formStatusMessage"
+            class="text-sm leading-relaxed"
+            :class="formStatus === 'error' ? 'text-red-700' : 'text-migs-text'"
+            role="status"
+            aria-live="polite"
+          >
+            {{ formStatusMessage }}
+          </p>
+        </form>
+
+        <p v-else class="self-center rounded-2xl bg-migs-bg p-5 text-sm leading-relaxed text-migs-text">
+          El formulario estará disponible próximamente. Mientras tanto, puedes contactarnos por WhatsApp o email.
+        </p>
       </div>
     </section>
   </div>

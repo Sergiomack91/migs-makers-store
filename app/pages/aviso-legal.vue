@@ -35,9 +35,10 @@
         <h2 class="text-lg font-medium text-migs-logo mb-3">3. Política de Privacidad y Protección de Datos (RGPD)</h2>
         <p>
           Este sitio se plantea como escaparate, sin carrito ni compra en línea. Las consultas sobre los productos se
-          realizarán mediante los canales de contacto que se publiquen. Antes de publicar, hay que documentar qué datos
-          se reciben por esos canales, para qué se usan y durante cuánto tiempo se conservan, e identificar el
-          alojamiento y los servicios que realmente se utilicen.
+          realizarán mediante los canales de contacto publicados. El formulario puede solicitar nombre, email, pieza de
+          interés y mensaje; los datos se enviarán a través de Formspree. Antes de publicar, hay que completar y verificar
+          la finalidad, base jurídica, conservación, derechos y datos del responsable, revisar la política de privacidad
+          de Formspree y documentar los proveedores y transferencias que correspondan.
         </p>
         <p class="mt-2">
           El texto definitivo también debe explicar los derechos aplicables a las personas usuarias y cómo ejercerlos,

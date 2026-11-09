@@ -9,7 +9,8 @@ export default defineNuxtConfig({
       tiktokUrl: '',
       vintedUrl: '',
       wallapopUrl: '',
-      emailAddress: ''
+      emailAddress: '',
+      formspreeFormId: ''
     }
   },
   app: {
