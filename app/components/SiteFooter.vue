@@ -30,6 +30,11 @@ const hasMissingSocialLinks = socialLinks.some((social) => !social.url)
               </NuxtLink>
             </li>
             <li>
+              <NuxtLink to="/#quienes-somos" class="text-sm text-migs-text transition-colors hover:text-migs-logo">
+                Quiénes somos
+              </NuxtLink>
+            </li>
+            <li>
               <NuxtLink to="/#contacto" class="text-sm text-migs-text transition-colors hover:text-migs-logo">
                 Diseños personalizados
               </NuxtLink>

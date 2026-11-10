@@ -3,12 +3,12 @@ import { products } from '~/data/products'
 
 const { emailUrl, formspreeFormId, whatsappUrl } = useStorefrontContact()
 const catalogSections = [
-  { id: 'populares', title: 'Populares' },
+  { id: 'destacados', title: 'Productos destacados' },
   { id: 'hogar', title: 'Hogar' },
   { id: 'llaveros', title: 'Llaveros' },
   { id: 'varios', title: 'Varios' },
 ]
-const popularProducts = products.filter((product) => product.category === 'Populares')
+const featuredProducts = products.filter((product) => product.category === 'Productos destacados')
 
 const contactForm = reactive({
   name: '',
@@ -144,23 +144,67 @@ async function submitContactForm() {
 
 <template>
   <div>
-    <section class="px-4 pb-14 pt-8 sm:px-6 lg:px-8 lg:pb-24 lg:pt-12">
-      <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-migs-logo px-6 py-14 text-white shadow-xl shadow-slate-200/60 sm:px-12 sm:py-20 lg:px-20">
+    <section id="destacados" class="scroll-mt-24 px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-6">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Descubre la colección</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Productos destacados</h2>
+        </div>
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+          <article v-for="product in featuredProducts" :key="product.id" class="group rounded-2xl">
+            <NuxtLink :to="`/producto/${product.slug}`" class="block">
+              <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
+                <img
+                  v-if="product.image"
+                  :src="product.image"
+                  :alt="product.name"
+                  loading="lazy"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                >
+                <div v-else class="flex flex-col items-center gap-3 text-center text-migs-text">
+                  <svg class="h-14 w-14 opacity-60" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                    <path d="M8 16.5 24 8l16 8.5v16L24 41 8 32.5v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                    <path d="m8.5 16.8 15.5 8.4 15.5-8.4M24 25.5V40" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                  </svg>
+                  <span class="text-sm font-medium">Imagen próximamente</span>
+                </div>
+                <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
+                  Producto de ejemplo
+                </span>
+              </div>
+              <div class="mt-4 flex items-start justify-between gap-3">
+                <div>
+                  <h3 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
+                  <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
+                </div>
+                <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
+              </div>
+            </NuxtLink>
+            <div class="mt-4">
+              <ProductContactActions :product-name="product.name" compact />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-6 pt-5 sm:px-6 lg:px-8 lg:pb-8 lg:pt-8">
+      <div class="relative mx-auto max-w-7xl overflow-hidden rounded-[2rem] bg-migs-logo px-6 py-8 text-white shadow-xl shadow-slate-200/60 sm:px-10 sm:py-10 lg:px-14 lg:py-12">
         <div class="pointer-events-none absolute -right-20 -top-32 h-96 w-96 rounded-full border border-white/10" />
         <div class="pointer-events-none absolute -right-4 -top-16 h-64 w-64 rounded-full border border-white/10" />
         <div class="pointer-events-none absolute bottom-0 left-0 h-44 w-44 rounded-full bg-white/5 blur-2xl" />
 
-        <div class="relative grid items-center gap-8 lg:grid-cols-[1.12fr_0.88fr] lg:gap-6">
+        <div class="relative grid items-center gap-6 lg:grid-cols-[1.12fr_0.88fr] lg:gap-6">
           <div class="relative z-10">
-            <p class="mb-5 text-xs font-semibold uppercase tracking-[0.25em] text-white/70">Diseño y fabricación 3D</p>
-            <h1 class="max-w-2xl text-4xl font-semibold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
+            <p class="mb-3 text-xs font-semibold uppercase tracking-[0.25em] text-white/70">Diseño y fabricación 3D</p>
+            <h1 class="max-w-2xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
               Piezas propias, con opciones para hacerlas más tuyas.
             </h1>
-            <p class="mt-6 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
+            <p class="mt-4 max-w-xl text-base leading-relaxed text-white/75 sm:text-lg">
               Cada modelo tiene colores y tamaños establecidos. ¿Te gustaría cambiar el color, las medidas o algún detalle? Consúltanos las opciones para tu pieza.
             </p>
 
-            <div class="mt-9 flex flex-wrap gap-3">
+            <div class="mt-6 flex flex-wrap gap-3">
               <a
                 v-if="whatsappContact"
                 :href="whatsappContact"
@@ -189,7 +233,7 @@ async function submitContactForm() {
               </NuxtLink>
             </div>
 
-            <div class="mt-10 flex flex-wrap gap-6 text-sm text-white/80">
+            <div class="mt-6 flex flex-wrap gap-6 text-sm text-white/80">
               <div>
                 <span class="block text-2xl font-semibold text-white">Color</span>
                 <span>opciones disponibles</span>
@@ -226,46 +270,100 @@ async function submitContactForm() {
       </div>
     </section>
 
-    <section id="populares" class="scroll-mt-24 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+    <section id="productos" class="scroll-mt-24 px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
       <div class="mx-auto max-w-7xl">
-        <div class="mb-6">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Descubre la colección</p>
-          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Populares</h2>
+        <div class="mb-8 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">La colección</p>
+            <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Explora por categorías</h2>
+          </div>
+          <p class="max-w-md text-sm leading-relaxed text-migs-text">
+            Estos artículos son ejemplos provisionales. Pronto añadiremos los productos y fotografías definitivos.
+          </p>
         </div>
-        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-          <article v-for="product in popularProducts" :key="product.id" class="group rounded-2xl">
-            <NuxtLink :to="`/producto/${product.slug}`" class="block">
-              <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
-                <img
-                  v-if="product.image"
-                  :src="product.image"
-                  :alt="product.name"
-                  loading="lazy"
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                >
-                <div v-else class="flex flex-col items-center gap-3 text-center text-migs-text">
-                  <svg class="h-14 w-14 opacity-60" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                    <path d="M8 16.5 24 8l16 8.5v16L24 41 8 32.5v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-                    <path d="m8.5 16.8 15.5 8.4 15.5-8.4M24 25.5V40" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-                  </svg>
-                  <span class="text-sm font-medium">Imagen próximamente</span>
-                </div>
-                <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
-                  Producto de ejemplo
-                </span>
-              </div>
-              <div class="mt-4 flex items-start justify-between gap-3">
-                <div>
-                  <h3 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
-                  <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
-                </div>
-                <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
-              </div>
-            </NuxtLink>
-            <div class="mt-4">
-              <ProductContactActions :product-name="product.name" compact />
+
+        <nav aria-label="Categorías de productos" class="mb-10 flex flex-wrap gap-3">
+          <a
+            v-for="section in catalogSections"
+            :key="section.id"
+            :href="`#${section.id}`"
+            class="rounded-full border border-migs-border/50 bg-white px-4 py-2 text-sm font-medium text-migs-logo transition-colors hover:bg-migs-bg"
+          >
+            {{ section.title }}
+          </a>
+        </nav>
+
+        <div class="space-y-14">
+          <section
+            v-for="section in catalogSections.filter((item) => item.id !== 'destacados')"
+            :id="section.id"
+            :key="section.id"
+            class="scroll-mt-24"
+            :aria-labelledby="`${section.id}-title`"
+          >
+            <div class="mb-6 flex items-end justify-between gap-4">
+              <h3 :id="`${section.id}-title`" class="text-2xl font-semibold tracking-tight text-migs-logo sm:text-3xl">
+                {{ section.title }}
+              </h3>
             </div>
-          </article>
+
+            <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+              <article
+                v-for="product in products.filter((item) => item.category === section.title)"
+                :key="product.id"
+                class="group rounded-2xl"
+              >
+                <NuxtLink :to="`/producto/${product.slug}`" class="block">
+                  <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
+                    <img
+                      v-if="product.image"
+                      :src="product.image"
+                      :alt="product.name"
+                      loading="lazy"
+                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    >
+                    <div v-else class="flex flex-col items-center gap-3 text-center text-migs-text">
+                      <svg class="h-14 w-14 opacity-60" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+                        <path d="M8 16.5 24 8l16 8.5v16L24 41 8 32.5v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                        <path d="m8.5 16.8 15.5 8.4 15.5-8.4M24 25.5V40" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+                      </svg>
+                      <span class="text-sm font-medium">Imagen próximamente</span>
+                    </div>
+                    <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
+                      Producto de ejemplo
+                    </span>
+                  </div>
+                  <div class="mt-4 flex items-start justify-between gap-3">
+                    <div>
+                      <h4 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h4>
+                      <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
+                    </div>
+                    <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
+                  </div>
+                </NuxtLink>
+                <div class="mt-4">
+                  <ProductContactActions :product-name="product.name" compact />
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section id="quienes-somos" class="scroll-mt-24 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+      <div class="mx-auto grid max-w-7xl gap-8 rounded-[2rem] border border-migs-border/30 bg-white p-6 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-12">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">MIGS 3D</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Quiénes somos</h2>
+        </div>
+        <div class="space-y-4 text-sm leading-relaxed text-migs-text sm:text-base">
+          <p>
+            En MIGS 3D diseñamos y fabricamos nuestra propia colección de piezas mediante impresión 3D. Cada modelo forma parte de una selección creada para ofrecer objetos originales y cuidados.
+          </p>
+          <p>
+            Trabajamos principalmente con PLA y cada pieza tiene opciones definidas de colores y tamaños. Si tienes una idea o quieres consultar algún cambio, cuéntanos qué necesitas: revisaremos contigo las posibilidades de cada modelo.
+          </p>
         </div>
       </div>
     </section>
@@ -340,87 +438,6 @@ async function submitContactForm() {
             <h3 class="mt-4 text-xl font-semibold text-migs-logo">{{ step.title }}</h3>
             <p class="mt-3 text-sm leading-relaxed text-migs-text">{{ step.text }}</p>
           </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="productos" class="scroll-mt-24 px-4 py-10 sm:px-6 lg:px-8 lg:py-16">
-      <div class="mx-auto max-w-7xl">
-        <div class="mb-8 flex flex-col gap-3 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">La colección</p>
-            <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Explora por categorías</h2>
-          </div>
-          <p class="max-w-md text-sm leading-relaxed text-migs-text">
-            Estos artículos son ejemplos provisionales. Pronto añadiremos los productos y fotografías definitivos.
-          </p>
-        </div>
-
-        <nav aria-label="Categorías de productos" class="mb-10 flex flex-wrap gap-3">
-          <a
-            v-for="section in catalogSections"
-            :key="section.id"
-            :href="`#${section.id}`"
-            class="rounded-full border border-migs-border/50 bg-white px-4 py-2 text-sm font-medium text-migs-logo transition-colors hover:bg-migs-bg"
-          >
-            {{ section.title }}
-          </a>
-        </nav>
-
-        <div class="space-y-14">
-          <section
-            v-for="section in catalogSections.filter((item) => item.id !== 'populares')"
-            :id="section.id"
-            :key="section.id"
-            class="scroll-mt-24"
-            :aria-labelledby="`${section.id}-title`"
-          >
-            <div class="mb-6 flex items-end justify-between gap-4">
-              <h3 :id="`${section.id}-title`" class="text-2xl font-semibold tracking-tight text-migs-logo sm:text-3xl">
-                {{ section.title }}
-              </h3>
-            </div>
-
-            <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-              <article
-                v-for="product in products.filter((item) => item.category === section.title)"
-                :key="product.id"
-                class="group rounded-2xl"
-              >
-                <NuxtLink :to="`/producto/${product.slug}`" class="block">
-                  <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
-                    <img
-                      v-if="product.image"
-                      :src="product.image"
-                      :alt="product.name"
-                      loading="lazy"
-                      class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    >
-                    <div v-else class="flex flex-col items-center gap-3 text-center text-migs-text">
-                      <svg class="h-14 w-14 opacity-60" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-                        <path d="M8 16.5 24 8l16 8.5v16L24 41 8 32.5v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-                        <path d="m8.5 16.8 15.5 8.4 15.5-8.4M24 25.5V40" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
-                      </svg>
-                      <span class="text-sm font-medium">Imagen próximamente</span>
-                    </div>
-                    <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
-                      Producto de ejemplo
-                    </span>
-                  </div>
-                  <div class="mt-4 flex items-start justify-between gap-3">
-                    <div>
-                      <h4 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h4>
-                      <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
-                    </div>
-                    <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
-                  </div>
-                </NuxtLink>
-                <div class="mt-4">
-                  <ProductContactActions :product-name="product.name" compact />
-                </div>
-              </article>
-            </div>
-          </section>
         </div>
       </div>
     </section>
