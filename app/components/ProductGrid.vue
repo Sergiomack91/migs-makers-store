@@ -67,8 +67,8 @@ const { instagramUrl, whatsappUrl } = useStorefrontContact()
         </div>
 
         <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-          <article v-for="product in products" :key="product.id" class="group">
-            <NuxtLink :to="`/producto/${product.slug}`" class="block">
+          <article v-for="product in products" :key="product.id" class="group flex h-full flex-col">
+            <NuxtLink :to="`/producto/${product.slug}`" class="flex flex-1 flex-col">
               <div class="relative aspect-[4/5] overflow-hidden rounded-2xl bg-white">
                 <img
                   :src="product.image"
@@ -83,15 +83,15 @@ const { instagramUrl, whatsappUrl } = useStorefrontContact()
                   Foto de ejemplo
                 </span>
               </div>
-              <div class="mt-4 flex items-start justify-between gap-3">
+              <div class="mt-4 flex min-h-16 items-start justify-between gap-3">
                 <div>
-                  <h3 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
+                  <h3 class="line-clamp-2 font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
                   <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
                 </div>
                 <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
               </div>
             </NuxtLink>
-            <div class="mt-4">
+            <div class="mt-auto w-full pt-4">
               <ProductContactActions :product-name="product.name" compact />
             </div>
           </article>

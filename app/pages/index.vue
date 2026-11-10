@@ -151,8 +151,8 @@ async function submitContactForm() {
           <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Productos destacados</h2>
         </div>
         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-          <article v-for="product in featuredProducts" :key="product.id" class="group rounded-2xl">
-            <NuxtLink :to="`/producto/${product.slug}`" class="block">
+          <article v-for="product in featuredProducts" :key="product.id" class="group flex h-full flex-col rounded-2xl">
+            <NuxtLink :to="`/producto/${product.slug}`" class="flex flex-1 flex-col">
               <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
                 <img
                   v-if="product.image"
@@ -172,15 +172,15 @@ async function submitContactForm() {
                   Producto de ejemplo
                 </span>
               </div>
-              <div class="mt-4 flex items-start justify-between gap-3">
+              <div class="mt-4 flex min-h-16 items-start justify-between gap-3">
                 <div>
-                  <h3 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
+                  <h3 class="line-clamp-2 font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
                   <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
                 </div>
                 <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
               </div>
             </NuxtLink>
-            <div class="mt-4">
+            <div class="mt-auto w-full pt-4">
               <ProductContactActions :product-name="product.name" compact />
             </div>
           </article>
@@ -311,9 +311,9 @@ async function submitContactForm() {
               <article
                 v-for="product in products.filter((item) => item.category === section.title)"
                 :key="product.id"
-                class="group rounded-2xl"
+                class="group flex h-full flex-col rounded-2xl"
               >
-                <NuxtLink :to="`/producto/${product.slug}`" class="block">
+                <NuxtLink :to="`/producto/${product.slug}`" class="flex flex-1 flex-col">
                   <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
                     <img
                       v-if="product.image"
@@ -333,15 +333,15 @@ async function submitContactForm() {
                       Producto de ejemplo
                     </span>
                   </div>
-                  <div class="mt-4 flex items-start justify-between gap-3">
+                  <div class="mt-4 flex min-h-16 items-start justify-between gap-3">
                     <div>
-                      <h4 class="font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h4>
+                      <h4 class="line-clamp-2 font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h4>
                       <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
                     </div>
                     <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
                   </div>
                 </NuxtLink>
-                <div class="mt-4">
+                <div class="mt-auto w-full pt-4">
                   <ProductContactActions :product-name="product.name" compact />
                 </div>
               </article>
