@@ -1,14 +1,8 @@
 <script setup lang="ts">
-import { products } from '~/data/products'
+import { productCategories, products } from '~/data/products'
 
 const { emailUrl, formspreeFormId, whatsappUrl } = useStorefrontContact()
-const catalogSections = [
-  { id: 'destacados', title: 'Productos destacados' },
-  { id: 'hogar', title: 'Hogar' },
-  { id: 'llaveros', title: 'Llaveros' },
-  { id: 'varios', title: 'Varios' },
-]
-const featuredProducts = products.filter((product) => product.category === 'Productos destacados')
+const featuredProducts = products.filter((product) => product.isPopular)
 
 const contactForm = reactive({
   name: '',
@@ -144,11 +138,11 @@ async function submitContactForm() {
 
 <template>
   <div>
-    <section id="destacados" class="scroll-mt-24 px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
+    <section id="populares" class="scroll-mt-24 px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
       <div class="mx-auto max-w-7xl">
         <div class="mb-6">
           <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Descubre la colección</p>
-          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Productos destacados</h2>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Populares</h2>
         </div>
         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
           <article v-for="product in featuredProducts" :key="product.id" class="group flex h-full flex-col rounded-2xl">
@@ -168,9 +162,6 @@ async function submitContactForm() {
                   </svg>
                   <span class="text-sm font-medium">Imagen próximamente</span>
                 </div>
-                <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
-                  Producto de ejemplo
-                </span>
               </div>
               <div class="mt-4 flex min-h-16 items-start justify-between gap-3">
                 <div>
@@ -184,6 +175,9 @@ async function submitContactForm() {
               <ProductContactActions :product-name="product.name" compact />
             </div>
           </article>
+          <p v-if="featuredProducts.length === 0" class="text-sm text-migs-text">
+            Aquí aparecerán los productos más populares de las demás categorías.
+          </p>
         </div>
       </div>
     </section>
@@ -278,13 +272,13 @@ async function submitContactForm() {
             <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Explora por categorías</h2>
           </div>
           <p class="max-w-md text-sm leading-relaxed text-migs-text">
-            Estos artículos son ejemplos provisionales. Pronto añadiremos los productos y fotografías definitivos.
+            Explora nuestra selección de piezas impresas en 3D. También creamos productos personalizados bajo consulta.
           </p>
         </div>
 
         <nav aria-label="Categorías de productos" class="mb-10 flex flex-wrap gap-3">
           <a
-            v-for="section in catalogSections"
+            v-for="section in productCategories"
             :key="section.id"
             :href="`#${section.id}`"
             class="rounded-full border border-migs-border/50 bg-white px-4 py-2 text-sm font-medium text-migs-logo transition-colors hover:bg-migs-bg"
@@ -295,7 +289,7 @@ async function submitContactForm() {
 
         <div class="space-y-14">
           <section
-            v-for="section in catalogSections.filter((item) => item.id !== 'destacados')"
+            v-for="section in productCategories.filter((item) => item.title !== 'Populares')"
             :id="section.id"
             :key="section.id"
             class="scroll-mt-24"
@@ -329,9 +323,6 @@ async function submitContactForm() {
                       </svg>
                       <span class="text-sm font-medium">Imagen próximamente</span>
                     </div>
-                    <span class="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1.5 text-xs font-medium text-migs-logo backdrop-blur">
-                      Producto de ejemplo
-                    </span>
                   </div>
                   <div class="mt-4 flex min-h-16 items-start justify-between gap-3">
                     <div>
@@ -345,6 +336,12 @@ async function submitContactForm() {
                   <ProductContactActions :product-name="product.name" compact />
                 </div>
               </article>
+              <p
+                v-if="!products.some((product) => product.category === section.title)"
+                class="text-sm text-migs-text"
+              >
+                Próximamente añadiremos productos a esta categoría.
+              </p>
             </div>
           </section>
         </div>
