@@ -52,7 +52,7 @@ const process = [
   {
     number: '03',
     title: 'Confirmamos opciones',
-    text: 'Revisamos contigo qué personalizaciones son posibles para esa pieza y su precio.',
+    text: 'Revisamos contigo qué personalizaciones son posibles para esa pieza.',
   },
   {
     number: '04',
@@ -67,8 +67,8 @@ const faqs = [
     answer: 'Puedes consultarnos cambios de color, tamaño o modificaciones. Las opciones dependen de cada pieza y confirmaremos contigo qué es posible.',
   },
   {
-    question: '¿Puedo consultar un presupuesto sin compromiso?',
-    answer: 'Claro. Puedes escribirnos por WhatsApp o Instagram y te responderemos con información y precio.',
+    question: '¿Puedo consultar sobre un producto?',
+    answer: 'Claro. Puedes escribirnos por WhatsApp o Instagram y te responderemos sobre el producto y sus opciones.',
   },
   {
     question: '¿Qué tipos de materiales usáis?',
@@ -173,7 +173,6 @@ async function submitContactForm() {
                   <h3 class="line-clamp-2 font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
                   <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
                 </div>
-                <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
               </div>
             </NuxtLink>
             <div class="mt-auto w-full pt-4">
@@ -211,14 +210,14 @@ async function submitContactForm() {
                 rel="noopener noreferrer"
                 class="inline-flex min-h-12 items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-migs-logo transition-colors hover:bg-migs-bg"
               >
-                Solicitar presupuesto
+                Contactar
               </a>
               <a
                 v-else-if="emailContact"
                 :href="emailContact"
                 class="inline-flex min-h-12 items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-migs-logo transition-colors hover:bg-migs-bg"
               >
-                Solicitar presupuesto por email
+                Consultar por email
               </a>
               <NuxtLink
                 v-else-if="formspreeFormId"
@@ -339,7 +338,6 @@ async function submitContactForm() {
                       <h4 class="line-clamp-2 font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h4>
                       <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
                     </div>
-                    <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
                   </div>
                 </NuxtLink>
                 <div class="mt-auto w-full pt-4">
@@ -461,7 +459,7 @@ async function submitContactForm() {
 
         <div class="mx-auto flex max-w-3xl flex-col items-center gap-4 rounded-3xl border border-migs-border/30 bg-white p-6 text-center sm:flex-row sm:justify-center sm:text-left">
           <p class="text-sm leading-relaxed text-migs-text">
-            ¿Tienes una pieza en mente? Escríbenos con el modelo y los cambios que te gustaría pedir. Te confirmaremos disponibilidad y precio.
+            ¿Tienes una pieza en mente? Escríbenos con el modelo y los cambios que te gustaría pedir. Te confirmaremos disponibilidad y opciones.
           </p>
           <a
             v-if="whatsappContact"

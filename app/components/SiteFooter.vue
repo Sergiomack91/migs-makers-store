@@ -17,7 +17,7 @@ const hasMissingSocialLinks = socialLinks.some((social) => !social.url)
             </span>
           </NuxtLink>
           <p class="max-w-sm text-sm leading-relaxed text-migs-text">
-            Diseño y fabricación digital de piezas únicas. Explora el catálogo y escríbenos para consultar precios.
+            Diseño y fabricación digital de piezas únicas. Explora el catálogo y escríbenos para resolver tus dudas.
           </p>
         </div>
 

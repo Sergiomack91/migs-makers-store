@@ -31,7 +31,7 @@ export const products: Product[] = [
     isPopular: true,
     material: 'PLA',
     description:
-      'Figura personalizada impresa en 3D según tus indicaciones. Consulta opciones de personalización y presupuesto.',
+      'Figura personalizada impresa en 3D según tus indicaciones. Consulta las opciones de personalización.',
     image: '/images/productos/personalizados/soldado.png',
   },
   {
@@ -41,7 +41,7 @@ export const products: Product[] = [
     category: 'Personalizados',
     material: 'PLA',
     description:
-      'Figura personalizada impresa en 3D según la persona o el diseño que nos indiques. Consulta opciones de personalización y presupuesto.',
+      'Figura personalizada impresa en 3D según la persona o el diseño que nos indiques. Consulta las opciones de personalización.',
     image: '/images/productos/personalizados/futbolista.png',
   },
   {
@@ -63,7 +63,7 @@ export const products: Product[] = [
     isPopular: true,
     material: 'PLA',
     description:
-      'Pieza impresa en 3D para ambientar tus partidas de Thunder Road: Vendetta. Consulta precio y disponibilidad.',
+      'Pieza impresa en 3D para ambientar tus partidas de Thunder Road: Vendetta. Consulta disponibilidad y opciones.',
     image: '/images/productos/juegos-de-mesa/casathunderroadvendetta.png',
   },
   {
@@ -73,7 +73,7 @@ export const products: Product[] = [
     category: 'Juegos de mesa',
     material: 'PLA',
     description:
-      'Pieza impresa en 3D para ambientar tus partidas de Thunder Road: Vendetta. Consulta precio y disponibilidad.',
+      'Pieza impresa en 3D para ambientar tus partidas de Thunder Road: Vendetta. Consulta disponibilidad y opciones.',
     image: '/images/productos/juegos-de-mesa/Rampathunderroadvendetta.png',
   },
 ]

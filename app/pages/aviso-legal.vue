@@ -40,7 +40,7 @@ const { emailAddress } = useStorefrontContact()
       <div id="privacidad" class="scroll-mt-24">
         <h2 class="text-lg font-medium text-migs-logo mb-3">3. Política de Privacidad y Protección de Datos (RGPD)</h2>
         <p>
-          <strong>Finalidad:</strong> responder consultas sobre las piezas, precios, disponibilidad y personalización.
+          <strong>Finalidad:</strong> responder consultas sobre las piezas, disponibilidad y personalización.
           Este sitio es un catálogo y no procesa compras ni pagos.
         </p>
         <p class="mt-2">

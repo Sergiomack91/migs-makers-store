@@ -46,7 +46,6 @@ useSeoMeta({
         <h1 class="mb-4 mt-3 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">{{ product.name }}</h1>
         <p class="mb-6 inline-flex w-fit rounded-full bg-white px-3 py-1.5 text-sm font-medium text-migs-text">{{ product.material }}</p>
         <p class="mb-8 leading-relaxed text-migs-text">{{ product.description }}</p>
-        <p class="mb-4 text-sm font-semibold text-migs-logo">Precio a consultar</p>
         <div v-if="product.sizes?.length || product.colors?.length" class="mb-6 space-y-4">
           <div v-if="product.sizes?.length">
             <label for="product-size" class="mb-1.5 block text-sm font-semibold text-migs-text">Tamaño</label>

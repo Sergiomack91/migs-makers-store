@@ -62,7 +62,7 @@ const { instagramUrl, whatsappUrl } = useStorefrontContact()
             <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Piezas para descubrir</h2>
           </div>
           <p class="max-w-md text-sm leading-relaxed text-migs-text">
-            ¿Te interesa una pieza o tienes una idea? Escríbenos para consultar precio, colores y personalización.
+            ¿Te interesa una pieza o tienes una idea? Escríbenos para consultar colores, disponibilidad y personalización.
           </p>
         </div>
 
@@ -88,7 +88,6 @@ const { instagramUrl, whatsappUrl } = useStorefrontContact()
                   <h3 class="line-clamp-2 font-semibold text-migs-logo transition-colors group-hover:text-migs-text">{{ product.name }}</h3>
                   <p class="mt-1 text-sm text-migs-text">{{ product.material }}</p>
                 </div>
-                <span class="shrink-0 text-right text-xs font-semibold text-migs-text">Consultar<br>precio</span>
               </div>
             </NuxtLink>
             <div class="mt-auto w-full pt-4">
