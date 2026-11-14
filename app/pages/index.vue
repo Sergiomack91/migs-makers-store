@@ -417,7 +417,7 @@ async function submitContactForm() {
           <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Nuestro material</p>
           <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Imprimimos en PLA</h2>
           <p class="mt-3 text-sm leading-relaxed text-migs-text">
-            El PLA es un termoplástico muy utilizado en impresión 3D. Permite crear piezas ligeras, rígidas y con buen nivel de detalle. Como cualquier material, tiene límites: puede deformarse con temperaturas elevadas y no es adecuado para todos los usos.
+            El PLA (ácido poliláctico) es un termoplástico que se utiliza en impresión 3D y puede fabricarse a partir de materias primas vegetales renovables, como almidón de maíz o caña de azúcar. Aunque algunos productos de PLA pueden compostarse en instalaciones industriales con condiciones controladas, no se biodegrada necesariamente en casa ni en el entorno natural. Es ligero y permite reproducir detalles, pero puede deformarse con temperaturas elevadas y no es adecuado para todos los usos.
           </p>
         </div>
         <div class="mt-8 grid gap-5 md:grid-cols-3">
