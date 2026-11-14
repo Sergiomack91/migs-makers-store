@@ -139,7 +139,7 @@ const hasMissingSocialLinks = socialLinks.some((social) => !social.url)
       </div>
 
       <div class="mt-10 flex flex-col gap-4 border-t border-migs-border/50 pt-6 sm:flex-row sm:items-center sm:justify-between">
-        <p class="text-xs text-migs-text">&copy; 2026 MIGS Makers.</p>
+        <p class="text-xs text-migs-text">&copy; 2026 MIGS3D.</p>
         <nav aria-label="Información legal" class="flex flex-wrap gap-x-5 gap-y-3">
           <NuxtLink to="/aviso-legal" class="text-xs text-migs-text transition-colors hover:text-migs-logo">
             Aviso legal y privacidad
