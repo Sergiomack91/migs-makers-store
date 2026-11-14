@@ -4,6 +4,7 @@ export const productCategories = [
   { id: 'personalizados', title: 'Personalizados' },
   { id: 'juegos-de-mesa', title: 'Juegos de mesa' },
   { id: 'letras-personalizadas', title: 'Letras personalizadas' },
+  { id: 'llaveros', title: 'Llaveros' },
 ] as const
 
 export type ProductCategory = Exclude<(typeof productCategories)[number]['title'], 'Populares'>

@@ -144,8 +144,13 @@ async function submitContactForm() {
           <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Descubre la colección</p>
           <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Populares</h2>
         </div>
-        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
-          <article v-for="product in featuredProducts" :key="product.id" class="group flex h-full flex-col rounded-2xl">
+        <div
+          aria-label="Productos populares"
+          role="region"
+          tabindex="0"
+          class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-8 sm:overflow-visible sm:p-0 lg:grid-cols-4"
+        >
+          <article v-for="product in featuredProducts" :key="product.id" class="group flex h-full w-[82%] shrink-0 snap-start flex-col rounded-2xl sm:w-auto">
             <NuxtLink :to="`/producto/${product.slug}`" class="flex flex-1 flex-col">
               <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
                 <img
@@ -175,7 +180,7 @@ async function submitContactForm() {
               <ProductContactActions :product-name="product.name" compact />
             </div>
           </article>
-          <p v-if="featuredProducts.length === 0" class="text-sm text-migs-text">
+          <p v-if="featuredProducts.length === 0" class="w-full shrink-0 text-sm text-migs-text sm:col-span-2 lg:col-span-4">
             Aquí aparecerán los productos más populares de las demás categorías.
           </p>
         </div>
@@ -301,11 +306,16 @@ async function submitContactForm() {
               </h3>
             </div>
 
-            <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+            <div
+              :aria-label="`Productos de ${section.title}`"
+              role="region"
+              tabindex="0"
+              class="-mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-4 sm:mx-0 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-10 sm:overflow-visible sm:p-0 lg:grid-cols-4"
+            >
               <article
                 v-for="product in products.filter((item) => item.category === section.title)"
                 :key="product.id"
-                class="group flex h-full flex-col rounded-2xl"
+                class="group flex h-full w-[82%] shrink-0 snap-start flex-col rounded-2xl sm:w-auto"
               >
                 <NuxtLink :to="`/producto/${product.slug}`" class="flex flex-1 flex-col">
                   <div class="relative flex aspect-[4/5] items-center justify-center overflow-hidden rounded-2xl bg-migs-bg shadow-sm ring-1 ring-migs-border/50">
@@ -338,7 +348,7 @@ async function submitContactForm() {
               </article>
               <p
                 v-if="!products.some((product) => product.category === section.title)"
-                class="text-sm text-migs-text"
+                class="w-full shrink-0 text-sm text-migs-text sm:col-span-2 lg:col-span-4"
               >
                 Próximamente añadiremos productos a esta categoría.
               </p>
