@@ -1,6 +1,6 @@
 <!-- app/pages/producto/[slug].vue -->
 <script setup lang="ts">
-import { products } from '~/data/products'
+import { productColors, products } from '~/data/products'
 
 const route = useRoute()
 const product = products.find((item) => item.slug === route.params.slug)
@@ -65,7 +65,7 @@ useSeoMeta({
         <h1 class="mb-4 mt-3 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">{{ product.name }}</h1>
         <p class="mb-6 inline-flex w-fit rounded-full bg-white px-3 py-1.5 text-sm font-medium text-migs-text">{{ product.material }}</p>
         <p class="mb-8 leading-relaxed text-migs-text">{{ product.description }}</p>
-        <div v-if="product.sizes?.length || product.formats?.length || product.colors?.length" class="mb-6 space-y-4">
+        <div v-if="product.sizes?.length || product.formats?.length" class="mb-6 space-y-4">
           <div v-if="product.formats?.length">
             <label for="product-format" class="mb-1.5 block text-sm font-semibold text-migs-text">Formato</label>
             <select
@@ -88,18 +88,32 @@ useSeoMeta({
               <option v-for="size in product.sizes" :key="size" :value="size">{{ size }}</option>
             </select>
           </div>
-          <div v-if="product.colors?.length">
-            <label for="product-color" class="mb-1.5 block text-sm font-semibold text-migs-text">Color disponible</label>
-            <select
-              id="product-color"
-              v-model="selectedColor"
-              class="min-h-11 w-full rounded-lg border border-migs-border bg-white px-3 py-2 text-sm text-migs-text focus:outline-none focus:ring-2 focus:ring-migs-logo"
-            >
-              <option value="">Selecciona un color</option>
-              <option v-for="color in product.colors" :key="color" :value="color">{{ color }}</option>
-            </select>
-          </div>
         </div>
+        <fieldset class="mb-6 space-y-3">
+          <legend class="text-sm font-semibold text-migs-text">Elige un color</legend>
+          <div class="grid grid-cols-3 gap-2 sm:grid-cols-4">
+            <button
+              v-for="color in productColors"
+              :key="color.name"
+              type="button"
+              class="flex min-h-20 flex-col items-center justify-center gap-1.5 rounded-xl border px-1.5 py-2 text-center transition-colors focus:outline-none focus:ring-2 focus:ring-migs-logo"
+              :class="selectedColor === color.name ? 'border-migs-logo bg-migs-bg ring-1 ring-migs-logo' : 'border-migs-border/50 bg-white hover:border-migs-logo'"
+              :aria-label="color.name"
+              :aria-pressed="selectedColor === color.name"
+              @click="selectedColor = color.name"
+            >
+              <span class="relative block h-8 w-8 rounded-full border border-black/10 shadow-sm" :style="{ backgroundColor: color.hex }">
+                <svg v-if="selectedColor === color.name" class="absolute inset-1 h-6 w-6 text-white drop-shadow [filter:drop-shadow(0_1px_1px_rgba(0,0,0,0.8))]" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m5 12 4 4L19 6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </span>
+              <span class="text-[11px] leading-tight text-migs-text">{{ color.name }}</span>
+            </button>
+          </div>
+          <p class="text-xs leading-relaxed text-migs-text">
+            Los colores se ofrecen como opciones de personalización; confirmaremos su disponibilidad para cada modelo.
+          </p>
+        </fieldset>
         <ProductContactActions
           :product-name="product.name"
           :size="selectedSize"
@@ -107,7 +121,7 @@ useSeoMeta({
           :color="selectedColor"
         />
         <p class="mt-6 border-t border-migs-border/60 pt-5 text-sm leading-relaxed text-migs-text">
-          Cada modelo tiene colores y tamaños establecidos. Escríbenos para consultar disponibilidad y solicitar cambios de color, tamaño o modificaciones; te confirmaremos qué opciones hay para esta pieza.
+          El color seleccionado se incluirá en tu consulta. También puedes preguntarnos por cambios de tamaño u otras modificaciones para este modelo.
         </p>
       </div>
     </div>

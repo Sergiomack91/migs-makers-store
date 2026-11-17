@@ -10,6 +10,24 @@ export const productCategories = [
 
 export type ProductCategory = Exclude<(typeof productCategories)[number]['title'], 'Los más destacados'>
 
+export const productColors = [
+  { name: 'Verde Manzana', hex: '#B5DB81' },
+  { name: 'Verde hierba', hex: '#58C680' },
+  { name: 'Azul Hielo', hex: '#B5E4E9' },
+  { name: 'Amarillo Limón', hex: '#F7DB4A' },
+  { name: 'Morado lila', hex: '#B89AD7' },
+  { name: 'Bronceado desierto', hex: '#DDCCA7' },
+  { name: 'Chocolate oscuro', hex: '#4A2C22' },
+  { name: 'Marrón oscuro', hex: '#725D52' },
+  { name: 'Verde oscuro', hex: '#6D7950' },
+  { name: 'Rojo oscuro', hex: '#A72438' },
+  { name: 'Blanco Marfil', hex: '#F2E8D0' },
+  { name: 'Rojo Escarlata', hex: '#D84146' },
+  { name: 'Terracota', hex: '#B95332' },
+  { name: 'Azul marino', hex: '#183A5B' },
+  { name: 'Carbón', hex: '#252525' },
+] as const
+
 export interface Product {
   id: number
   slug: string
@@ -20,7 +38,6 @@ export interface Product {
   description: string
   sizes?: string[]
   formats?: string[]
-  colors?: string[]
   image?: string
   images?: string[]
 }
@@ -158,7 +175,6 @@ Medidas:
     isPopular: true,
     material: 'PLA',
     formats: ['Unidad individual', 'Kit de 3 unidades', 'Kit de 6 unidades', 'Kit de 9 unidades'],
-    colors: ['Blanco', 'Negro', 'Rojo'],
     description: `Prácticos recipientes hexagonales para recursos que aportarán orden y un toque de color a tus partidas de juegos de mesa. Ideales para mantener tus tokens, monedas o dados perfectamente organizados en la mesa o para hacer un regalo muy útil a cualquier aficionado.
 
 Su ingenioso diseño cuenta con un sistema magnético que te permite unir varios cuencos entre sí para crear tu zona de juego a medida y evitar que las piezas se dispersen. Están disponibles en distintos colores y puedes adquirirlos de manera individual o elegir entre cómodos kits modulares de 3, 6 o 9 unidades para adaptarse a las necesidades de tus juegos favoritos.
