@@ -356,23 +356,6 @@ async function submitContactForm() {
       </div>
     </section>
 
-    <section id="quienes-somos" class="scroll-mt-24 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
-      <div class="mx-auto grid max-w-7xl gap-8 rounded-[2rem] border border-migs-border/30 bg-white p-6 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-12">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">MIGS3D</p>
-          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Sobre nosotros</h2>
-        </div>
-        <div class="space-y-4 text-sm leading-relaxed text-migs-text sm:text-base">
-          <p>
-            Somos Mario, Israel, Guillermo y Sergio, las personas que están detrás de MIGS3D. Diseñamos y fabricamos piezas mediante impresión 3D, cuidando cada detalle del proceso. Mario se encarga de las redes sociales y de impulsar las ventas. Israel prepara los pedidos y se asegura de que todo salga perfecto. Guillermo es el diseñador jefe y lleva las cuentas del proyecto; entre todos colaboramos en el diseño y aportamos ideas. Sergio se ocupa de la página web y de proponer ideas y conceptos tecnológicos para aumentar nuestra visibilidad y automatizar procesos.
-          </p>
-          <p>
-            Este proyecto reúne nuestro interés por el diseño y la fabricación digital. Si tienes alguna pregunta sobre nosotros o sobre una pieza, estaremos encantados de leerte.
-          </p>
-        </div>
-      </div>
-    </section>
-
     <section class="px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
       <div class="mx-auto max-w-7xl">
         <div class="mb-8 text-center">
@@ -486,6 +469,23 @@ async function submitContactForm() {
             <h3 class="text-base font-semibold text-migs-logo">{{ item.question }}</h3>
             <p class="mt-2 text-sm leading-relaxed text-migs-text">{{ item.answer }}</p>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="quienes-somos" class="scroll-mt-24 px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+      <div class="mx-auto grid max-w-7xl gap-8 rounded-[2rem] border border-migs-border/30 bg-white p-6 sm:p-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center lg:gap-12">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">MIGS3D</p>
+          <h2 class="mt-2 text-3xl font-semibold tracking-tight text-migs-logo sm:text-4xl">Quiénes somos</h2>
+        </div>
+        <div class="space-y-4 text-sm leading-relaxed text-migs-text sm:text-base">
+          <p>
+            Somos Mario, Israel, Guillermo y Sergio, las personas que están detrás de MIGS3D. Diseñamos y fabricamos piezas mediante impresión 3D, cuidando cada detalle del proceso. Mario se encarga de las redes sociales y de impulsar las ventas. Israel prepara los pedidos y se asegura de que todo salga perfecto. Guillermo es el diseñador jefe y lleva las cuentas del proyecto; entre todos colaboramos en el diseño y aportamos ideas. Sergio se ocupa de la página web y de proponer ideas y conceptos tecnológicos para aumentar nuestra visibilidad y automatizar procesos.
+          </p>
+          <p>
+            Este proyecto reúne nuestro interés por el diseño y la fabricación digital. Si tienes alguna pregunta sobre nosotros o sobre una pieza, estaremos encantados de leerte.
+          </p>
         </div>
       </div>
     </section>
