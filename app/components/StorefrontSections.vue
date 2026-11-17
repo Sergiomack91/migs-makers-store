@@ -4,9 +4,15 @@ import { productCategories, products } from '~/data/products'
 const props = defineProps<{
   section: 'home' | 'productos' | 'quienes-somos' | 'proceso' | 'personalizar' | 'contacto'
 }>()
-const { emailUrl, formspreeFormId, whatsappUrl } = useStorefrontContact()
+const { emailUrl, formspreeFormId, socialLinks, whatsappUrl } = useStorefrontContact()
 const featuredProducts = products.filter((product) => product.isPopular)
 const latestProducts = [...products].sort((first, second) => second.id - first.id).slice(0, 4)
+const homeSocialLinks = ['Instagram', 'TikTok', 'Wallapop', 'Vinted']
+  .flatMap((name) => {
+    const social = socialLinks.find((item) => item.name === name)
+    return social ? [social] : []
+  })
+const hasMissingHomeSocialLinks = homeSocialLinks.some((social) => !social.url)
 const activeFeaturedIndex = ref(0)
 const activeFeaturedProduct = computed(() => featuredProducts[activeFeaturedIndex.value])
 const featuredRotationPaused = ref(false)
@@ -197,17 +203,31 @@ async function submitContactForm() {
 <template>
   <div>
     <section v-if="props.section === 'home'" class="px-4 pb-5 pt-4 sm:px-6 lg:px-8 lg:pb-8 lg:pt-6">
-      <div class="mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] bg-migs-text text-white shadow-xl shadow-migs-logo/15 lg:grid-cols-[1.05fr_0.95fr]">
-        <div class="relative flex min-h-[26rem] items-center justify-center bg-migs-text px-5 py-14 text-center sm:px-10 lg:min-h-[36rem] lg:justify-start lg:px-14 lg:text-left">
+      <div
+        class="relative isolate mx-auto flex min-h-[34rem] max-w-7xl items-center justify-center overflow-hidden rounded-[2rem] bg-migs-text text-white shadow-xl shadow-migs-logo/15 lg:min-h-[36rem]"
+        role="region"
+        aria-label="Carrusel de productos destacados"
+        aria-roledescription="carrusel"
+      >
+        <img
+          v-if="activeFeaturedProduct?.image"
+          :src="activeFeaturedProduct.image"
+          alt=""
+          aria-hidden="true"
+          fetchpriority="high"
+          class="absolute inset-0 h-full w-full scale-110 object-cover opacity-75 blur-2xl"
+        >
+        <div class="absolute inset-0 bg-migs-logo/65" aria-hidden="true" />
+        <div class="relative z-10 flex min-h-[34rem] w-full items-center justify-center px-5 pb-20 pt-24 text-center sm:px-10 lg:min-h-[36rem] lg:px-14">
           <div class="relative z-10 max-w-2xl">
             <p class="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/80 sm:text-sm">Diseño y fabricación en 3D</p>
             <h1 class="font-serif text-3xl font-normal uppercase leading-tight tracking-wide sm:text-4xl lg:text-5xl">
               Decoración y regalos<br class="hidden sm:block"> impresos en 3D
             </h1>
-            <p class="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base lg:mx-0">
+            <p class="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base">
               Piezas originales para dar un toque especial a tu hogar o sorprender con un regalo único. También tenemos accesorios para juegos de mesa.
             </p>
-            <div class="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <div class="mt-8 flex flex-wrap justify-center gap-3">
               <NuxtLink
                 to="/productos#navidad"
                 class="inline-flex min-h-12 items-center justify-center bg-migs-logo px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-migs-bg hover:text-migs-logo"
@@ -223,65 +243,50 @@ async function submitContactForm() {
             </div>
           </div>
         </div>
-        <div
-          class="relative aspect-[4/3] overflow-hidden bg-[#171412] lg:aspect-auto lg:min-h-[36rem]"
-          role="region"
-          aria-label="Carrusel de productos destacados"
-          aria-roledescription="carrusel"
+        <NuxtLink
+          v-if="activeFeaturedProduct"
+          :to="`/producto/${activeFeaturedProduct.slug}`"
+          class="absolute right-5 top-5 z-20 max-w-[70%] rounded-lg bg-migs-logo/85 px-3 py-2 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-migs-logo"
         >
-          <img
-            v-if="activeFeaturedProduct?.image"
-            :src="activeFeaturedProduct.image"
-            :alt="activeFeaturedProduct.name"
-            fetchpriority="high"
-            class="absolute inset-0 h-full w-full object-contain"
+          {{ activeFeaturedProduct.name }}
+        </NuxtLink>
+        <div class="absolute bottom-4 right-4 z-20 flex items-center gap-2">
+          <button
+            type="button"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-migs-logo/80 text-white shadow-lg shadow-migs-logo/15 backdrop-blur-sm transition-colors hover:bg-migs-logo focus:outline-none focus:ring-2 focus:ring-white"
+            aria-label="Ver producto anterior"
+            @click="showFeaturedProduct(-1)"
           >
-          <div class="absolute inset-0 bg-gradient-to-t from-[#171412]/75 via-transparent to-[#171412]/10 lg:bg-gradient-to-r lg:from-migs-text/35 lg:via-transparent lg:to-[#171412]/10" />
-          <NuxtLink
-            v-if="activeFeaturedProduct"
-            :to="`/producto/${activeFeaturedProduct.slug}`"
-            class="absolute left-5 top-5 z-10 max-w-[70%] rounded-lg bg-black/45 px-3 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-black/65"
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <span class="inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-white/85 px-3 text-xs font-semibold text-migs-logo shadow-sm backdrop-blur-sm" aria-hidden="true">
+            {{ activeFeaturedIndex + 1 }} / {{ featuredProducts.length }}
+          </span>
+          <button
+            type="button"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-migs-logo/80 text-white shadow-lg shadow-migs-logo/15 backdrop-blur-sm transition-colors hover:bg-migs-logo focus:outline-none focus:ring-2 focus:ring-white"
+            aria-label="Ver siguiente producto"
+            @click="showFeaturedProduct(1)"
           >
-            {{ activeFeaturedProduct.name }}
-          </NuxtLink>
-          <div class="absolute bottom-4 right-4 z-10 flex items-center gap-2">
-            <button
-              type="button"
-              class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition-colors hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-white"
-              aria-label="Ver producto anterior"
-              @click="showFeaturedProduct(-1)"
-            >
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-            <span class="min-w-10 text-center text-xs font-semibold text-white" aria-hidden="true">
-              {{ activeFeaturedIndex + 1 }} / {{ featuredProducts.length }}
-            </span>
-            <button
-              type="button"
-              class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition-colors hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-white"
-              aria-label="Ver siguiente producto"
-              @click="showFeaturedProduct(1)"
-            >
-              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              </svg>
-            </button>
-            <button
-              type="button"
-              class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition-colors hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-white"
-              :aria-label="featuredRotationPaused ? 'Reanudar el cambio automático' : 'Pausar el cambio automático'"
-              @click="toggleFeaturedRotation"
-            >
-              <svg v-if="featuredRotationPaused" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M8 5v14l11-7L8 5Z" />
-              </svg>
-              <svg v-else class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M7 5h4v14H7zM15 5h4v14h-4z" />
-              </svg>
-            </button>
-          </div>
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-migs-logo/80 text-white shadow-lg shadow-migs-logo/15 backdrop-blur-sm transition-colors hover:bg-migs-logo focus:outline-none focus:ring-2 focus:ring-white"
+            :aria-label="featuredRotationPaused ? 'Reanudar el cambio automático' : 'Pausar el cambio automático'"
+            @click="toggleFeaturedRotation"
+          >
+            <svg v-if="featuredRotationPaused" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M8 5v14l11-7L8 5Z" />
+            </svg>
+            <svg v-else class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M7 5h4v14H7zM15 5h4v14h-4z" />
+            </svg>
+          </button>
         </div>
       </div>
     </section>
@@ -367,6 +372,46 @@ async function submitContactForm() {
             </div>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section v-if="props.section === 'home'" id="redes-sociales" class="px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
+      <div class="mx-auto max-w-7xl rounded-[2rem] bg-white p-6 ring-1 ring-migs-border/30 sm:p-10">
+        <div class="mb-6">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Estamos conectados</p>
+          <h2 class="mt-2 text-2xl font-semibold tracking-tight text-migs-logo sm:text-3xl">Síguenos en redes sociales</h2>
+        </div>
+        <div class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
+          <component
+            :is="social.url ? 'a' : 'div'"
+            v-for="social in homeSocialLinks"
+            :key="social.name"
+            :href="social.url || undefined"
+            :target="social.url ? '_blank' : undefined"
+            :rel="social.url ? 'noopener noreferrer' : undefined"
+            :aria-label="social.url ? `Síguenos en ${social.name}` : `${social.name}: perfil pendiente`"
+            class="flex min-h-16 items-center gap-3 rounded-xl border border-migs-border/50 bg-migs-bg px-4 py-3 text-sm font-semibold text-migs-logo transition-colors hover:border-migs-text/40 hover:bg-migs-bg/70"
+          >
+            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-migs-text ring-1 ring-migs-border/50" aria-hidden="true">
+              <svg v-if="social.icon === 'instagram'" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 0 1 1.772 1.153 4.902 4.902 0 0 1 1.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 0 1-1.153 1.772 4.902 4.902 0 0 1-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 0 1-1.772-1.153 4.902 4.902 0 0 1-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 0 1 1.153-1.772A4.902 4.902 0 0 1 5.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63Zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.137.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 0 0-.748-1.15 3.098 3.098 0 0 0-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058ZM12 6.865a5.135 5.135 0 1 1 0 10.27 5.135 5.135 0 0 1 0-10.27Zm0 1.802a3.333 3.333 0 1 0 0 6.666 3.333 3.333 0 0 0 0-6.666Zm5.338-3.205a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4Z" clip-rule="evenodd" />
+              </svg>
+              <svg v-else-if="social.icon === 'tiktok'" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M19.6 7.2a5.7 5.7 0 0 1-3.5-1.2v8.1a6.1 6.1 0 1 1-5.3-6v3.3a2.8 2.8 0 1 0 2 2.7V2.5h3.3c.2 2 1.6 3.6 3.5 3.9v.8Z" />
+              </svg>
+              <svg v-else-if="social.icon === 'wallapop'" class="h-5 w-5" fill="currentColor" viewBox="110 75 170 175">
+                <path fill-rule="evenodd" d="M266.44 158.91c-2.96-14.46-12.28-21.33-14.64-22.76-.98-.59-1.61-1.45-1.56-2.92.82-26.58-18.58-49.53-45.65-49.46-17.29.04-28.1 7.56-37.02 17.88-1.01 1.17-2.78 1.05-4.16.33-17.48-9.06-38.29-2.96-47.1 13.85-7.63 14.56-4.59 31.16 7.8 41.97 1.3 1.13 1.56 3.11.64 4.55-10.81 16.9-5.9 39.4 11 50.21a36.334 36.334 0 0 0 30.95 3.92c1.83-.53 3.16 0 4.05 1.39 11.22 16.52 33.73 21.25 50.54 10.3a36.756 36.756 0 0 0 16.45-26.4c.16-1.31 1.03-2.57 2.31-2.89 25.01-6.4 28.45-29.9 26.39-39.97zm-35.32 31.72c-3.23.13-5 1.96-5.01 5.06-.12 4.59-1.51 9.04-4.02 12.89-7.5 11.53-22.92 14.79-34.44 7.3-11.53-7.5-14.79-22.92-7.3-34.45h.02c1.55-2.39.88-5.59-1.51-7.14-2.39-1.56-5.67-.93-7.23 1.46-5.47 7.49-8.01 16.72-6.92 25.95.21 1.79-1 3.45-2.78 3.8-6.17 1.25-12.58.22-18.05-2.88-12.53-7.11-16.92-23.03-9.81-35.56.79-1.39 2.26-2.22 3.93-1.79 3.2.89 6.52 1.32 9.84 1.29a4.737 4.737 0 0 0 4.7-4.78 4.739 4.739 0 0 0-4.44-4.69c-4.68-.3-9.02-1.3-12.85-4.01-11.72-8.29-13.66-23.6-5.54-34.7 7.76-10.59 23.6-12.44 34.84-3.5 2.19 1.74 5.95 1.43 7.22-1.05 2.44-4.77 6.53-8.54 8.55-10.01 15.97-11.61 36.41-9.9 49.23 5.12 13.18 15.44 11.04 37.96-5.67 51.47-2.22 1.79-2.4 5.15-.53 7.31 1.78 2.06 4.96 2.42 7.13.78 5.7-4.3 10.98-10.17 14.25-16.52.3-.58.81-1.27 1.37-1.6 1.65-.98 3.77-.2 4.75 1.45 2.03 3.42 3.8 8.53 4.03 12.5.8 13.7-10.03 25.5-23.76 26.3z" />
+              </svg>
+              <svg v-else-if="social.icon === 'vinted'" class="h-6 w-6" fill="currentColor" viewBox="4 0 20 24">
+                <path d="M19.316 0c-.258 0-.571.217-1.415.953-.3.108-.627.027-1.008.613-2.15 3.09-3.825 14.648-5.255 17.984-.286-1.444-.885-10.837-1.116-13.41-.028-.477.027-1.076.027-1.43 0-2.368-.516-3.567-2.886-3.567-1.198 0-2.382.436-3.008 1.226-.299.408-.409.708-.409 1.443 0 4.915 1.171 12.973 2.478 18.228C7.132 23.688 8.603 24 9.99 24c.654 0 1.307-.081 2.233-.544 3.212-1.567 4.07-5.84 4.9-9.993.15-.749.899-4.37 1.253-6.275.476-2.6 1.02-5.54 1.347-6.617C19.833.245 19.63 0 19.317 0z" />
+              </svg>
+            </span>
+            <span>{{ social.name }}</span>
+          </component>
+        </div>
+        <p v-if="hasMissingHomeSocialLinks" class="mt-4 text-xs text-migs-text">
+          Estamos configurando los enlaces de nuestros perfiles.
+        </p>
       </div>
     </section>
 
