@@ -3,6 +3,7 @@ const props = withDefaults(defineProps<{
   productName: string
   compact?: boolean
   size?: string
+  format?: string
   color?: string
 }>(), {
   compact: false,
@@ -11,13 +12,14 @@ const props = withDefaults(defineProps<{
 const { emailUrl, instagramUrl, whatsappUrl } = useStorefrontContact()
 const contactMessage = computed(() => {
   const selectedOptions = [
+    props.format ? `Formato elegido: ${props.format}.` : '',
     props.size ? `Tamaño elegido: ${props.size}.` : '',
     props.color ? `Color elegido: ${props.color}.` : '',
   ].filter(Boolean)
 
   return selectedOptions.length
     ? `Hola, me interesa ${props.productName}. ${selectedOptions.join(' ')}`
-    : `Hola, me interesa ${props.productName}. ¿Me podéis informar sobre los colores y tamaños disponibles y las opciones de personalización?`
+    : `Hola, me interesa ${props.productName}. ¿Me podéis informar sobre los colores, formatos y tamaños disponibles y las opciones de personalización?`
 })
 const whatsappLink = computed(() => whatsappUrl(contactMessage.value))
 const emailLink = computed(() => emailUrl(
