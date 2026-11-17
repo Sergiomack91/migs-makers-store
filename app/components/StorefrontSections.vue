@@ -43,16 +43,6 @@ function startFeaturedRotation() {
   featuredRotationTimer = window.setInterval(() => showFeaturedProduct(1), 6000)
 }
 
-function toggleFeaturedRotation() {
-  featuredRotationPaused.value = !featuredRotationPaused.value
-
-  if (featuredRotationPaused.value) {
-    stopFeaturedRotation()
-  } else {
-    startFeaturedRotation()
-  }
-}
-
 onMounted(() => {
   if (props.section !== 'home') {
     return
@@ -218,7 +208,7 @@ async function submitContactForm() {
           class="absolute inset-0 h-full w-full scale-110 object-cover opacity-75 blur-2xl"
         >
         <div class="absolute inset-0 bg-migs-logo/65" aria-hidden="true" />
-        <div class="relative z-10 flex min-h-[34rem] w-full items-center justify-center px-5 pb-20 pt-24 text-center sm:px-10 lg:min-h-[36rem] lg:px-14">
+        <div class="relative z-10 flex min-h-[34rem] w-full items-center justify-center px-5 py-14 text-center sm:px-10 lg:min-h-[36rem] lg:px-14">
           <div class="relative z-10 max-w-2xl">
             <p class="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/80 sm:text-sm">Diseño y fabricación en 3D</p>
             <h1 class="font-serif text-3xl font-normal uppercase leading-tight tracking-wide sm:text-4xl lg:text-5xl">
@@ -242,51 +232,6 @@ async function submitContactForm() {
               </NuxtLink>
             </div>
           </div>
-        </div>
-        <NuxtLink
-          v-if="activeFeaturedProduct"
-          :to="`/producto/${activeFeaturedProduct.slug}`"
-          class="absolute right-5 top-5 z-20 max-w-[70%] rounded-lg bg-migs-logo/85 px-3 py-2 text-sm font-semibold text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-migs-logo"
-        >
-          {{ activeFeaturedProduct.name }}
-        </NuxtLink>
-        <div class="absolute bottom-4 right-4 z-20 flex items-center gap-2">
-          <button
-            type="button"
-            class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-migs-logo/80 text-white shadow-lg shadow-migs-logo/15 backdrop-blur-sm transition-colors hover:bg-migs-logo focus:outline-none focus:ring-2 focus:ring-white"
-            aria-label="Ver producto anterior"
-            @click="showFeaturedProduct(-1)"
-          >
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <span class="inline-flex h-10 min-w-10 items-center justify-center rounded-full bg-white/85 px-3 text-xs font-semibold text-migs-logo shadow-sm backdrop-blur-sm" aria-hidden="true">
-            {{ activeFeaturedIndex + 1 }} / {{ featuredProducts.length }}
-          </span>
-          <button
-            type="button"
-            class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-migs-logo/80 text-white shadow-lg shadow-migs-logo/15 backdrop-blur-sm transition-colors hover:bg-migs-logo focus:outline-none focus:ring-2 focus:ring-white"
-            aria-label="Ver siguiente producto"
-            @click="showFeaturedProduct(1)"
-          >
-            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-migs-logo/80 text-white shadow-lg shadow-migs-logo/15 backdrop-blur-sm transition-colors hover:bg-migs-logo focus:outline-none focus:ring-2 focus:ring-white"
-            :aria-label="featuredRotationPaused ? 'Reanudar el cambio automático' : 'Pausar el cambio automático'"
-            @click="toggleFeaturedRotation"
-          >
-            <svg v-if="featuredRotationPaused" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M8 5v14l11-7L8 5Z" />
-            </svg>
-            <svg v-else class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M7 5h4v14H7zM15 5h4v14h-4z" />
-            </svg>
-          </button>
         </div>
       </div>
     </section>
