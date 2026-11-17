@@ -31,7 +31,6 @@ export const products: Product[] = [
     slug: 'figura-personalizada-soldado',
     name: 'Figura personalizada de militar',
     category: 'Personalizados',
-    isPopular: true,
     material: 'PLA',
     description:
       'Figura personalizada impresa en 3D según tus indicaciones. Consulta las opciones de personalización.',
@@ -52,7 +51,6 @@ export const products: Product[] = [
     slug: 'reno-decorativo',
     name: 'Reno decorativo de 17 cm',
     category: 'Navidad',
-    isPopular: true,
     material: 'PLA',
     description:
       'Figura decorativa de reno impresa en 3D, en acabado marrón. Altura aproximada: 17 cm.',
@@ -63,7 +61,6 @@ export const products: Product[] = [
     slug: 'casa-thunder-road-vendetta',
     name: 'Casa para Thunder Road: Vendetta',
     category: 'Juegos de mesa',
-    isPopular: true,
     material: 'PLA',
     description:
       'Pieza impresa en 3D para ambientar tus partidas de Thunder Road: Vendetta. Consulta disponibilidad y opciones.',
@@ -84,6 +81,7 @@ export const products: Product[] = [
     slug: 'cascanueces-rojo',
     name: 'Cascanueces navideño rojo',
     category: 'Navidad',
+    isPopular: true,
     material: 'PLA',
     description: `Llamativo cascanueces navideño en un vibrante color rojo que aportará un toque moderno y un ambiente festivo a tu hogar. Ideal para decorar una estantería, el recibidor o para regalar.
 
@@ -123,6 +121,7 @@ Medidas: 8,6 × 6,2 × 10 cm.`,
     slug: 'conejo-decorativo-contenedor',
     name: 'Conejo decorativo con contenedor',
     category: 'Hogar',
+    isPopular: true,
     material: 'PLA',
     description: `Original figura decorativa con forma de conejo en tonos blanco y rojo que aportará un toque divertido y funcional a tu hogar. Ideal para decorar la habitación de los más pequeños, una estantería o como detalle sorpresa para regalar.
 
@@ -140,6 +139,7 @@ Medidas: 17,2 cm de alto.`,
     slug: 'pareja-buhos-decorativos',
     name: 'Pareja de búhos decorativos',
     category: 'Hogar',
+    isPopular: true,
     material: 'PLA',
     description: `Encantadora pareja de búhos decorativos en contraste blanco y negro que aportará un toque de sabiduría y elegancia a tu hogar. Ideal para decorar una estantería, un escritorio o para hacer un regalo muy original.
 
@@ -155,6 +155,7 @@ Medidas:
     slug: 'recipientes-hexagonales-magneticos',
     name: 'Recipientes hexagonales magnéticos',
     category: 'Juegos de mesa',
+    isPopular: true,
     material: 'PLA',
     formats: ['Unidad individual', 'Kit de 3 unidades', 'Kit de 6 unidades', 'Kit de 9 unidades'],
     colors: ['Blanco', 'Negro', 'Rojo'],

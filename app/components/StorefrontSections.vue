@@ -7,6 +7,60 @@ const props = defineProps<{
 const { emailUrl, formspreeFormId, whatsappUrl } = useStorefrontContact()
 const featuredProducts = products.filter((product) => product.isPopular)
 const latestProducts = [...products].sort((first, second) => second.id - first.id).slice(0, 4)
+const activeFeaturedIndex = ref(0)
+const activeFeaturedProduct = computed(() => featuredProducts[activeFeaturedIndex.value])
+const featuredRotationPaused = ref(false)
+let featuredRotationTimer: number | undefined
+
+function showFeaturedProduct(offset: number) {
+  if (featuredProducts.length < 2) {
+    return
+  }
+
+  activeFeaturedIndex.value = (activeFeaturedIndex.value + offset + featuredProducts.length) % featuredProducts.length
+}
+
+function stopFeaturedRotation() {
+  if (featuredRotationTimer !== undefined) {
+    window.clearInterval(featuredRotationTimer)
+    featuredRotationTimer = undefined
+  }
+}
+
+function startFeaturedRotation() {
+  stopFeaturedRotation()
+
+  if (props.section !== 'home' || featuredRotationPaused.value || featuredProducts.length < 2) {
+    return
+  }
+
+  featuredRotationTimer = window.setInterval(() => showFeaturedProduct(1), 6000)
+}
+
+function toggleFeaturedRotation() {
+  featuredRotationPaused.value = !featuredRotationPaused.value
+
+  if (featuredRotationPaused.value) {
+    stopFeaturedRotation()
+  } else {
+    startFeaturedRotation()
+  }
+}
+
+onMounted(() => {
+  if (props.section !== 'home') {
+    return
+  }
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    featuredRotationPaused.value = true
+    return
+  }
+
+  startFeaturedRotation()
+})
+
+onBeforeUnmount(stopFeaturedRotation)
 
 const contactForm = reactive({
   name: '',
@@ -143,37 +197,90 @@ async function submitContactForm() {
 <template>
   <div>
     <section v-if="props.section === 'home'" class="px-4 pb-5 pt-4 sm:px-6 lg:px-8 lg:pb-8 lg:pt-6">
-      <div class="relative mx-auto flex min-h-[26rem] max-w-7xl items-center justify-center overflow-hidden rounded-[2rem] bg-[#60432f] px-5 py-16 text-center text-white shadow-xl shadow-[#60432f]/15 sm:min-h-[32rem] sm:px-10 lg:min-h-[36rem]">
-        <img
-          src="/images/productos/hogar/RENO_MARRON_17_CM.png"
-          alt=""
-          aria-hidden="true"
-          fetchpriority="high"
-          class="absolute inset-0 h-full w-full object-cover object-[center_42%] opacity-60 mix-blend-multiply"
+      <div class="mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] bg-migs-text text-white shadow-xl shadow-migs-logo/15 lg:grid-cols-[1.05fr_0.95fr]">
+        <div class="relative flex min-h-[26rem] items-center justify-center bg-migs-text px-5 py-14 text-center sm:px-10 lg:min-h-[36rem] lg:justify-start lg:px-14 lg:text-left">
+          <div class="relative z-10 max-w-2xl">
+            <p class="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/80 sm:text-sm">Diseño y fabricación en 3D</p>
+            <h1 class="font-serif text-3xl font-normal uppercase leading-tight tracking-wide sm:text-4xl lg:text-5xl">
+              Decoración y regalos<br class="hidden sm:block"> impresos en 3D
+            </h1>
+            <p class="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base lg:mx-0">
+              Piezas originales para dar un toque especial a tu hogar o sorprender con un regalo único. También tenemos accesorios para juegos de mesa.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-3 lg:justify-start">
+              <NuxtLink
+                to="/productos#navidad"
+                class="inline-flex min-h-12 items-center justify-center bg-migs-logo px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-migs-bg hover:text-migs-logo"
+              >
+                Ver Navidad
+              </NuxtLink>
+              <NuxtLink
+                to="/productos"
+                class="inline-flex min-h-12 items-center justify-center bg-white px-7 py-3 text-sm font-semibold uppercase tracking-wide text-migs-logo transition-colors hover:bg-migs-bg"
+              >
+                Descubre la colección
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+        <div
+          class="relative aspect-[4/3] overflow-hidden bg-[#171412] lg:aspect-auto lg:min-h-[36rem]"
+          role="region"
+          aria-label="Carrusel de productos destacados"
+          aria-roledescription="carrusel"
         >
-        <div class="absolute inset-0 bg-gradient-to-b from-[#302016]/35 via-[#302016]/55 to-[#302016]/75" />
-        <div class="absolute inset-x-0 top-1/2 mx-auto h-28 max-w-3xl -translate-y-1/2 bg-black/15" />
-        <div class="relative z-10 max-w-4xl">
-          <p class="mb-4 text-xs font-semibold uppercase tracking-[0.25em] text-white/80 sm:text-sm">Diseño y fabricación en 3D</p>
-          <h1 class="font-serif text-3xl font-normal uppercase leading-tight tracking-wide sm:text-4xl lg:text-5xl">
-            Decoración y regalos<br class="hidden sm:block"> impresos en 3D
-          </h1>
-          <p class="mx-auto mt-5 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-base">
-            Piezas originales para dar un toque especial a tu hogar o sorprender con un regalo único. También tenemos accesorios para juegos de mesa.
-          </p>
-          <div class="mt-8 flex flex-wrap justify-center gap-3">
-            <NuxtLink
-              to="/productos#navidad"
-              class="inline-flex min-h-12 items-center justify-center bg-[#790b3d] px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-[#610832]"
+          <img
+            v-if="activeFeaturedProduct?.image"
+            :src="activeFeaturedProduct.image"
+            :alt="activeFeaturedProduct.name"
+            fetchpriority="high"
+            class="absolute inset-0 h-full w-full object-contain"
+          >
+          <div class="absolute inset-0 bg-gradient-to-t from-[#171412]/75 via-transparent to-[#171412]/10 lg:bg-gradient-to-r lg:from-migs-text/35 lg:via-transparent lg:to-[#171412]/10" />
+          <NuxtLink
+            v-if="activeFeaturedProduct"
+            :to="`/producto/${activeFeaturedProduct.slug}`"
+            class="absolute left-5 top-5 z-10 max-w-[70%] rounded-lg bg-black/45 px-3 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-black/65"
+          >
+            {{ activeFeaturedProduct.name }}
+          </NuxtLink>
+          <div class="absolute bottom-4 right-4 z-10 flex items-center gap-2">
+            <button
+              type="button"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition-colors hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-white"
+              aria-label="Ver producto anterior"
+              @click="showFeaturedProduct(-1)"
             >
-              Ver Navidad
-            </NuxtLink>
-            <NuxtLink
-              to="/productos"
-              class="inline-flex min-h-12 items-center justify-center border border-white/80 px-7 py-3 text-sm font-semibold uppercase tracking-wide text-white transition-colors hover:bg-white/10"
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <span class="min-w-10 text-center text-xs font-semibold text-white" aria-hidden="true">
+              {{ activeFeaturedIndex + 1 }} / {{ featuredProducts.length }}
+            </span>
+            <button
+              type="button"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition-colors hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-white"
+              aria-label="Ver siguiente producto"
+              @click="showFeaturedProduct(1)"
             >
-              Descubre la colección
-            </NuxtLink>
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-black/45 text-white backdrop-blur-sm transition-colors hover:bg-black/70 focus:outline-none focus:ring-2 focus:ring-white"
+              :aria-label="featuredRotationPaused ? 'Reanudar el cambio automático' : 'Pausar el cambio automático'"
+              @click="toggleFeaturedRotation"
+            >
+              <svg v-if="featuredRotationPaused" class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7L8 5Z" />
+              </svg>
+              <svg v-else class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M7 5h4v14H7zM15 5h4v14h-4z" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
