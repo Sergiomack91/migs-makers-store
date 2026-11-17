@@ -26,7 +26,7 @@ useSeoMeta({
 
 <template>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
-    <NuxtLink to="/#productos" class="mb-6 inline-flex text-sm font-medium text-migs-text transition-colors hover:text-migs-logo">
+    <NuxtLink to="/productos" class="mb-6 inline-flex text-sm font-medium text-migs-text transition-colors hover:text-migs-logo">
       &larr; Volver al escaparate
     </NuxtLink>
     <div class="grid grid-cols-1 items-start gap-8 md:grid-cols-2 lg:gap-16">

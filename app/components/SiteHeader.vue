@@ -3,12 +3,13 @@
 const isMenuOpen = ref(false)
 
 const navigationLinks = [
-  { label: 'Productos', to: '/#productos' },
-  { label: 'Quiénes somos', to: '/#quienes-somos' },
-  { label: 'Proceso', to: '/#proceso' },
-  { label: 'Personalizar', to: '/#personalizacion' },
-  { label: 'Contacto', to: '/#contacto' },
+  { label: 'Productos', to: '/productos' },
+  { label: 'Novedades', to: '/#novedades' },
+  { label: 'Proceso', to: '/proceso' },
+  { label: 'Quiénes somos', to: '/quienes-somos' },
 ]
+const leftNavigationLinks = navigationLinks.slice(0, 2)
+const rightNavigationLinks = navigationLinks.slice(2)
 
 function closeMenu() {
   isMenuOpen.value = false
@@ -18,34 +19,43 @@ function closeMenu() {
 <template>
   <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-migs-border">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center justify-between">
-        <div class="flex-shrink-0">
-          <NuxtLink to="/" class="flex items-center gap-3" @click="closeMenu">
-            <img src="/Logo.png" alt="MIGS 3D Logo" class="h-10 w-auto opacity-80" />
-            <span class="text-lg font-bold tracking-tighter text-slate-900">
-              MIGS<span class="text-zinc-500 font-light"> 3D</span>
-            </span>
-          </NuxtLink>
-        </div>
-
-        <nav class="hidden items-center gap-3 md:flex lg:gap-6">
+      <div class="relative flex h-16 items-center justify-between md:grid md:h-20 md:grid-cols-[1fr_auto_1fr] md:gap-x-8">
+        <nav aria-label="Navegación principal, izquierda" class="hidden items-center justify-end gap-3 md:flex lg:gap-6">
           <NuxtLink
-            v-for="link in navigationLinks"
+            v-for="link in leftNavigationLinks"
             :key="link.to"
             :to="link.to"
-            class="text-xs font-medium text-migs-text transition-colors hover:text-migs-logo lg:text-sm"
+            class="whitespace-nowrap text-xs font-medium text-migs-text transition-colors hover:text-migs-logo lg:text-sm"
           >
             {{ link.label }}
           </NuxtLink>
         </nav>
 
-        <div class="flex items-center gap-3">
-          <NuxtLink
-            to="/#contacto"
-            class="hidden rounded-lg bg-migs-logo px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-migs-text md:inline-flex"
-          >
-            Contactar
+        <div class="absolute left-1/2 -translate-x-1/2 md:static md:translate-x-0">
+          <NuxtLink to="/" aria-label="MIGS 3D, inicio" class="flex items-center justify-center" @click="closeMenu">
+            <img src="/Logo.png" alt="Logo de MIGS 3D" class="h-14 w-auto object-contain opacity-90 md:h-16" />
           </NuxtLink>
+        </div>
+
+        <nav aria-label="Navegación principal, derecha" class="hidden items-center justify-start gap-3 md:flex lg:gap-6">
+          <NuxtLink
+            v-for="link in rightNavigationLinks"
+            :key="link.to"
+            :to="link.to"
+            class="whitespace-nowrap text-xs font-medium text-migs-text transition-colors hover:text-migs-logo lg:text-sm"
+          >
+            {{ link.label }}
+          </NuxtLink>
+        </nav>
+
+        <NuxtLink
+          to="/contacto"
+          class="absolute right-0 top-1/2 hidden min-h-11 -translate-y-1/2 items-center justify-center whitespace-nowrap rounded-lg bg-migs-logo px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-migs-text md:inline-flex lg:px-4 lg:py-2.5 lg:text-sm"
+        >
+          Contactar
+        </NuxtLink>
+
+        <div class="flex items-center gap-3 md:hidden">
           <button
             type="button"
             class="inline-flex h-11 w-11 items-center justify-center rounded-lg border border-migs-border text-migs-logo transition-colors hover:bg-migs-bg md:hidden"
@@ -81,7 +91,7 @@ function closeMenu() {
           {{ link.label }}
         </NuxtLink>
         <NuxtLink
-          to="/#contacto"
+          to="/contacto"
           class="mt-2 inline-flex min-h-11 w-full items-center justify-center rounded-lg bg-migs-logo px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-migs-text"
           @click="closeMenu"
         >

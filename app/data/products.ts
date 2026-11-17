@@ -1,13 +1,14 @@
 export const productCategories = [
-  { id: 'populares', title: 'Populares' },
+  { id: 'destacados', title: 'Los más destacados' },
   { id: 'hogar', title: 'Hogar' },
+  { id: 'navidad', title: 'Navidad' },
   { id: 'personalizados', title: 'Personalizados' },
   { id: 'juegos-de-mesa', title: 'Juegos de mesa' },
   { id: 'letras-personalizadas', title: 'Letras personalizadas' },
   { id: 'llaveros', title: 'Llaveros' },
 ] as const
 
-export type ProductCategory = Exclude<(typeof productCategories)[number]['title'], 'Populares'>
+export type ProductCategory = Exclude<(typeof productCategories)[number]['title'], 'Los más destacados'>
 
 export interface Product {
   id: number
@@ -48,7 +49,7 @@ export const products: Product[] = [
     id: 3,
     slug: 'reno-decorativo',
     name: 'Reno decorativo de 17 cm',
-    category: 'Hogar',
+    category: 'Navidad',
     isPopular: true,
     material: 'PLA',
     description:

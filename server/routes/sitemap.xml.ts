@@ -46,6 +46,11 @@ export default defineEventHandler((event) => {
 
   const paths = [
     '/',
+    '/productos',
+    '/quienes-somos',
+    '/proceso',
+    '/personalizar',
+    '/contacto',
     ...products.map((product) => `/producto/${encodeURIComponent(product.slug)}`),
   ]
   const urls = paths

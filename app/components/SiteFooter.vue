@@ -25,17 +25,17 @@ const hasMissingSocialLinks = socialLinks.some((social) => !social.url)
           <h2 class="mb-4 text-sm font-semibold text-migs-logo">Explora</h2>
           <ul class="space-y-3">
             <li>
-              <NuxtLink to="/#productos" class="text-sm text-migs-text transition-colors hover:text-migs-logo">
+              <NuxtLink to="/productos" class="text-sm text-migs-text transition-colors hover:text-migs-logo">
                 Todos los productos
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/#quienes-somos" class="text-sm text-migs-text transition-colors hover:text-migs-logo">
+              <NuxtLink to="/quienes-somos" class="text-sm text-migs-text transition-colors hover:text-migs-logo">
                 Quiénes somos
               </NuxtLink>
             </li>
             <li>
-              <NuxtLink to="/#contacto" class="text-sm text-migs-text transition-colors hover:text-migs-logo">
+              <NuxtLink to="/personalizar" class="text-sm text-migs-text transition-colors hover:text-migs-logo">
                 Diseños personalizados
               </NuxtLink>
             </li>

@@ -6,7 +6,7 @@ Escaparate web de MIGSMakers para presentar diseños y productos de fabricación
 
 ## Funcionalidades actuales
 
-- Portada visual y catálogo adaptable a móvil y escritorio.
+- Portada visual y páginas independientes para productos, quiénes somos, proceso, personalización y contacto.
 - Fichas de producto con descripción, categoría y material.
 - Acciones de consulta por producto mediante enlaces configurables a WhatsApp, email e Instagram.
 - Formulario de contacto con campo trampa anti-bots, procesado por Formspree.
@@ -56,7 +56,7 @@ En Vercel, añade las variables en **Project Settings → Environment Variables*
 
 Configura `NUXT_PUBLIC_SITE_URL` con la URL pública principal del sitio (por ejemplo, `https://tudominio.es`, sin barra final). Se usa para las URL canónicas y las etiquetas Open Graph/Twitter de las vistas previas al compartir. El favicon se sirve desde `public/favicon.ico`.
 
-El sitemap se genera automáticamente en `/sitemap.xml` e incluye la portada y las fichas de producto. Para que las URL sean absolutas y válidas, configura `NUXT_PUBLIC_SITE_URL` con el dominio de producción, vuelve a desplegar y comprueba `https://tudominio.es/sitemap.xml`.
+El sitemap se genera automáticamente en `/sitemap.xml` e incluye la portada, las páginas principales y las fichas de producto. Para que las URL sean absolutas y válidas, configura `NUXT_PUBLIC_SITE_URL` con el dominio de producción, vuelve a desplegar y comprueba `https://tudominio.es/sitemap.xml`.
 
 Para registrar la web en Google Search Console:
 
@@ -83,17 +83,23 @@ El formulario transmite datos personales a Formspree. Revisa sus condiciones y p
 
 ```text
 app/
-├── app.vue                     # Composición principal de la página
-└── components/
-    ├── ProductGrid.vue         # Portada y catálogo
-    ├── ProductContactActions.vue # Contacto contextual por producto
-    ├── SiteHeader.vue          # Cabecera y navegación
-    └── SiteFooter.vue          # Enlaces de contacto e información legal
+├── app.vue                     # Composición global, cabecera y pie
+├── components/
+│   ├── StorefrontSections.vue  # Contenido de las rutas del escaparate
+│   ├── ProductContactActions.vue # Contacto contextual por producto
+│   ├── SiteHeader.vue          # Cabecera y navegación
+│   └── SiteFooter.vue          # Enlaces de contacto e información legal
 ├── composables/
 │   └── useStorefrontContact.ts # Enlaces de WhatsApp e Instagram
 ├── data/
 │   └── products.ts             # Productos de ejemplo
 └── pages/
+    ├── index.vue               # Portada
+    ├── productos.vue           # Catálogo
+    ├── quienes-somos.vue       # Información del equipo y materiales
+    ├── proceso.vue             # Proceso de trabajo y preguntas frecuentes
+    ├── personalizar.vue        # Opciones de personalización
+    ├── contacto.vue            # Formulario de contacto
     └── producto/[slug].vue     # Ficha de producto
 public/
 └── images/
