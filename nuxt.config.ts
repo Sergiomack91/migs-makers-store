@@ -7,6 +7,7 @@ export default defineNuxtConfig({
       instagramUrl: '',
       whatsappNumber: '',
       tiktokUrl: '',
+      youtubeUrl: '',
       vintedUrl: '',
       wallapopUrl: '',
       etsyUrl: '',

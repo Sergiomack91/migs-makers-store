@@ -7,6 +7,7 @@ export function useStorefrontContact() {
   const socialLinks = [
     { name: 'Instagram', url: instagramUrl, icon: 'instagram' },
     { name: 'TikTok', url: config.public.tiktokUrl, icon: 'tiktok' },
+    { name: 'YouTube', url: config.public.youtubeUrl, icon: 'youtube' },
     { name: 'Vinted', url: config.public.vintedUrl, icon: 'vinted' },
     { name: 'Wallapop', url: config.public.wallapopUrl, icon: 'wallapop' },
     { name: 'Etsy', url: config.public.etsyUrl, icon: 'etsy' },

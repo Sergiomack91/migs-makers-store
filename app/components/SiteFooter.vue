@@ -2,7 +2,7 @@
 const { emailUrl, instagramUrl, socialLinks, whatsappUrl } = useStorefrontContact()
 const whatsappLink = whatsappUrl('Hola, quiero información sobre vuestros productos.')
 const emailLink = emailUrl('Consulta sobre MIGS 3D')
-const footerSocialLinks = ['Instagram', 'TikTok', 'Wallapop', 'Vinted']
+const footerSocialLinks = ['Instagram', 'TikTok', 'YouTube', 'Wallapop', 'Vinted']
   .flatMap((name) => {
     const social = socialLinks.find((item) => item.name === name)
     return social ? [social] : []
@@ -107,6 +107,9 @@ const hasMissingSocialLinks = footerSocialLinks.some((social) => !social.url)
                 <svg v-else-if="social.icon === 'tiktok'" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M19.6 7.2a5.7 5.7 0 0 1-3.5-1.2v8.1a6.1 6.1 0 1 1-5.3-6v3.3a2.8 2.8 0 1 0 2 2.7V2.5h3.3c.2 2 1.6 3.6 3.5 3.9v.8Z" />
                 </svg>
+                <svg v-else-if="social.icon === 'youtube'" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4L15.8 12l-6.3 3.6Z" />
+                </svg>
                 <svg v-else-if="social.icon === 'vinted'" class="h-5 w-5" fill="currentColor" viewBox="4 0 20 24" aria-hidden="true">
                   <path d="M19.316 0c-.258 0-.571.217-1.415.953-.3.108-.627.027-1.008.613-2.15 3.09-3.825 14.648-5.255 17.984-.286-1.444-.885-10.837-1.116-13.41-.028-.477.027-1.076.027-1.43 0-2.368-.516-3.567-2.886-3.567-1.198 0-2.382.436-3.008 1.226-.299.408-.409.708-.409 1.443 0 4.915 1.171 12.973 2.478 18.228C7.132 23.688 8.603 24 9.99 24c.654 0 1.307-.081 2.233-.544 3.212-1.567 4.07-5.84 4.9-9.993.15-.749.899-4.37 1.253-6.275.476-2.6 1.02-5.54 1.347-6.617C19.833.245 19.63 0 19.317 0z" />
                 </svg>
@@ -125,6 +128,9 @@ const hasMissingSocialLinks = footerSocialLinks.some((social) => !social.url)
                 </svg>
                 <svg v-else-if="social.icon === 'tiktok'" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M19.6 7.2a5.7 5.7 0 0 1-3.5-1.2v8.1a6.1 6.1 0 1 1-5.3-6v3.3a2.8 2.8 0 1 0 2 2.7V2.5h3.3c.2 2 1.6 3.6 3.5 3.9v.8Z" />
+                </svg>
+                <svg v-else-if="social.icon === 'youtube'" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12s0-3.9-.5-5.8ZM9.5 15.6V8.4L15.8 12l-6.3 3.6Z" />
                 </svg>
                 <svg v-else-if="social.icon === 'vinted'" class="h-6 w-6" fill="currentColor" viewBox="4 0 20 24" aria-hidden="true">
                   <path d="M19.316 0c-.258 0-.571.217-1.415.953-.3.108-.627.027-1.008.613-2.15 3.09-3.825 14.648-5.255 17.984-.286-1.444-.885-10.837-1.116-13.41-.028-.477.027-1.076.027-1.43 0-2.368-.516-3.567-2.886-3.567-1.198 0-2.382.436-3.008 1.226-.299.408-.409.708-.409 1.443 0 4.915 1.171 12.973 2.478 18.228C7.132 23.688 8.603 24 9.99 24c.654 0 1.307-.081 2.233-.544 3.212-1.567 4.07-5.84 4.9-9.993.15-.749.899-4.37 1.253-6.275.476-2.6 1.02-5.54 1.347-6.617C19.833.245 19.63 0 19.317 0z" />
