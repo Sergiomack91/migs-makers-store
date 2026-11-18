@@ -38,6 +38,8 @@ export interface Product {
   description: string
   sizes?: string[]
   formats?: string[]
+  model3d?: string
+  modelDefaultColor?: string
   image?: string
   images?: string[]
 }
@@ -71,6 +73,8 @@ export const products: Product[] = [
     material: 'PLA',
     description:
       'Figura decorativa de reno impresa en 3D, en acabado marrón. Altura aproximada: 17 cm.',
+    model3d: '/models/reno.glb',
+    modelDefaultColor: '#725D52',
     image: '/images/productos/hogar/RENO_MARRON_17_CM.png',
   },
   {
@@ -106,6 +110,8 @@ Su diseño minimalista y su acabado texturizado reinventan todo un clásico de l
 
 Medidas: 20,9 cm de alto.`,
     image: '/images/productos/navidad/cascanueces-rojo.png',
+    model3d: '/models/cascanueces-rojo.glb',
+    modelDefaultColor: '#D84146',
   },
   {
     id: 7,
@@ -119,6 +125,8 @@ Su diseño minimalista de líneas fluidas y envolventes reinventa la tradición,
 
 Medidas: 12 cm de alto cada figura.`,
     image: '/images/productos/navidad/reyes-magos-blancos.png',
+    model3d: '/models/tres-magos.glb',
+    modelDefaultColor: '#F2E8D0',
   },
   {
     id: 8,
@@ -146,6 +154,8 @@ Su diseño moderno y texturizado esconde un secreto: la parte inferior sirve com
 
 Medidas: 17,2 cm de alto.`,
     image: '/images/productos/hogar/conejo-contenedor-abierto.png',
+    model3d: '/models/conejo-decorativo.glb',
+    modelDefaultColor: '#F2E8D0',
     images: [
       '/images/productos/hogar/conejo-contenedor-abierto.png',
       '/images/productos/hogar/conejo-contenedor-cerrado.png',
@@ -166,6 +176,8 @@ Medidas:
 - Búho blanco: 9,1 × 10,8 × 11,5 cm
 - Búho negro: 9,45 × 9,6 × 9,1 cm`,
     image: '/images/productos/hogar/pareja-buhos-decorativos.png',
+    model3d: '/models/buhos.glb',
+    modelDefaultColor: '#F2E8D0',
   },
   {
     id: 11,

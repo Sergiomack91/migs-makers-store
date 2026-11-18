@@ -7,6 +7,9 @@ const product = products.find((item) => item.slug === route.params.slug)
 const selectedSize = ref('')
 const selectedFormat = ref('')
 const selectedColor = ref('')
+const previewMode = ref<'photo' | '3d'>('photo')
+const hasOpened3dPreview = ref(false)
+const selectedColorHex = computed(() => productColors.find((color) => color.name === selectedColor.value)?.hex ?? product?.modelDefaultColor ?? '#725D52')
 const productImages = product?.images ?? (product?.image ? [product.image] : [])
 const selectedProductImage = ref(productImages[0] ?? '')
 
@@ -34,8 +37,39 @@ useSeoMeta({
     </NuxtLink>
     <div class="grid grid-cols-1 items-start gap-8 md:grid-cols-2 lg:gap-16">
       <div>
-        <div class="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl bg-migs-bg">
-          <img v-if="selectedProductImage" :src="selectedProductImage" :alt="product.name" class="h-full w-full object-cover object-center" />
+        <div v-if="product.model3d" class="mb-2 flex gap-2" role="group" aria-label="Tipo de vista del producto">
+          <button
+            type="button"
+            class="min-h-10 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-migs-logo"
+            :class="previewMode === 'photo' ? 'border-migs-logo bg-migs-logo text-white' : 'border-migs-border bg-white text-migs-logo hover:bg-migs-bg'"
+            :aria-pressed="previewMode === 'photo'"
+            @click="previewMode = 'photo'"
+          >
+            Foto
+          </button>
+          <button
+            type="button"
+            class="min-h-10 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-migs-logo"
+            :class="previewMode === '3d' ? 'border-migs-logo bg-migs-logo text-white' : 'border-migs-border bg-white text-migs-logo hover:bg-migs-bg'"
+            :aria-pressed="previewMode === '3d'"
+            @click="hasOpened3dPreview = true; previewMode = '3d'"
+          >
+            Vista 3D
+          </button>
+        </div>
+        <p v-if="product.model3d" class="mb-3 text-sm text-migs-text">
+          Pulse en Vista 3D para ver cómo quedan los colores en la figura.
+        </p>
+        <Product3DPreview
+          v-if="product.model3d && hasOpened3dPreview"
+          v-show="previewMode === '3d'"
+          :src="product.model3d"
+          :color="selectedColorHex"
+          :poster="selectedProductImage"
+          :alt="product.name"
+        />
+        <div v-show="previewMode === 'photo' || !product.model3d" class="relative flex aspect-[4/5] w-full items-center justify-center overflow-hidden rounded-2xl bg-migs-bg">
+          <img v-if="selectedProductImage" :src="selectedProductImage" :alt="product.name" class="h-full w-full object-cover object-center">
           <div v-else class="flex flex-col items-center gap-3 text-migs-text">
             <svg class="h-16 w-16 opacity-60" viewBox="0 0 48 48" fill="none" aria-hidden="true">
               <path d="M8 16.5 24 8l16 8.5v16L24 41 8 32.5v-16Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
