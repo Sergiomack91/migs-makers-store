@@ -140,6 +140,8 @@ Su diseño minimalista de líneas suaves y envolventes transmite calidez y prote
 
 Medidas: 8,6 × 6,2 × 10 cm.`,
     image: '/images/productos/navidad/abrazo-sagrado-natividad.png',
+    model3d: '/models/abrazo-sagrado-natividad.glb',
+    modelDefaultColor: '#F2E8D0',
   },
   {
     id: 9,
