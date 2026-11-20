@@ -320,7 +320,7 @@ async function submitContactForm() {
       </div>
     </section>
 
-    <section v-if="props.section === 'home'" id="redes-sociales" class="px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
+    <section v-if="props.section === 'home'" id="redes-sociales" class="scroll-mt-24 px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
       <div class="mx-auto max-w-7xl rounded-[2rem] bg-white p-6 ring-1 ring-migs-border/30 sm:p-10">
         <div class="mb-6">
           <p class="text-xs font-semibold uppercase tracking-[0.2em] text-migs-text">Estamos conectados</p>

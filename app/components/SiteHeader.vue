@@ -5,11 +5,12 @@ const isMenuOpen = ref(false)
 const navigationLinks = [
   { label: 'Productos', to: '/productos' },
   { label: 'Novedades', to: '/#novedades' },
+  { label: 'Síguenos', to: '/#redes-sociales' },
   { label: 'Proceso', to: '/proceso' },
   { label: 'Quiénes somos', to: '/quienes-somos' },
 ]
-const leftNavigationLinks = navigationLinks.slice(0, 2)
-const rightNavigationLinks = navigationLinks.slice(2)
+const leftNavigationLinks = navigationLinks.slice(0, 3)
+const rightNavigationLinks = navigationLinks.slice(3)
 
 function closeMenu() {
   isMenuOpen.value = false
